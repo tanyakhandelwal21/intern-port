@@ -27,5 +27,7 @@ app.post("/authentication", (req, res) => {
             console.log(error.message)
             return
         }
+
+        console.log("User signed in")
     })
 })
