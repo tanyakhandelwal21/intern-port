@@ -1,0 +1,24 @@
+{
+  "name": "intern-port-server",
+  "version": "1.0.0",
+  "description": "Server for intern-port",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aditya8100/intern-port-server.git"
+  },
+  "author": "Aditya Deepak, Tanya Khandelwal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aditya8100/intern-port-server/issues"
+  },
+  "homepage": "https://github.com/aditya8100/intern-port-server#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "firebase": "^5.9.2"
+  }
+}
