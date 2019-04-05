@@ -23,7 +23,7 @@
                 let password = document.getElementById("password").value
                 let combination = email + ":" + password
                 let base64 = btoa(combination);
-                let json = {"user_details": base64, "action_type": "Create"}
+                let json = {"user_details": base64, "action_type": "Create", "auth_type": "Company"}
 
                 $.post("http://localhost:1337/authentication", json,  function(data, status) {
                     console.log(data)

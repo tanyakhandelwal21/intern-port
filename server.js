@@ -14,6 +14,8 @@ const firebase = firebase_import.initializeApp({
 require('firebase/auth')
 require('firebase/database')
 
+const root_db = firebase.database().ref()
+
 app.listen(process.env.PORT || 1337, () => console.log("Server is listening"))
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -28,6 +30,7 @@ app.post("/authentication", (req, res) => {
 
     let emailID = user_details.substring(0, user_details.indexOf(":"));
     let password = user_details.substring(user_details.indexOf(":")+1);
+    let auth_type = req.body.auth_type;
 
     console.log("Email: " + emailID)
 
@@ -49,11 +52,20 @@ app.post("/authentication", (req, res) => {
             if (user && user.emailVerified === false) {
                 user.sendEmailVerification().then(function(){
                     console.log("email verification sent to user");
+                    let user_data = {
+                        "email": emailID,
+                        "uid": user.uid
+                    }
+                    root_db.child("Users").child(auth_type).child(user.uid).update(user_data).catch((error) => {
+                        console.log("error adding to db")
+                        //res.send({"Status": "Error", "Message": error.message})
+                    })
+                    res.send({"Status": "Success"})
                 }).catch((error) => {
                     console.log("Error in sending verification email")
+                    res.send({"Status": "Error", "Message": error.message})
                 });
             }
-            res.send({"Status": "Success"})
         }).catch((error) => {
             if (error != null) {
                 console.log(error.message)
@@ -67,7 +79,7 @@ app.post("/authentication", (req, res) => {
                 res.send({"Status": "Error", "Message": "Unverified Email Address"})
             } else {
                 console.log("User signed in")
-                res.send({"Status": "Success", "UID": firebase.auth().currentUser.uid})
+                res.send({"Status": "Success", "UID": user.uid})
             }
         }).catch((error) => {
             if (error != null) {
