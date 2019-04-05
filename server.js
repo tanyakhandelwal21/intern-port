@@ -16,6 +16,7 @@ require('firebase/database')
 
 app.listen(process.env.PORT || 1337, () => console.log("Server is listening"))
 app.use(bodyParser.urlencoded({ extended: true }));
+
 app.post("/authentication", (req, res) => {
     var user_details = req.body.user_details;
     
@@ -42,11 +43,14 @@ app.post("/authentication", (req, res) => {
     }
 
     if (req.body.action_type != null && req.body.action_type == "Create") {
-        firebase.auth().createUserWithEmailAndPassword(emailID, password).then((user) => {
+        firebase.auth().createUserWithEmailAndPassword(emailID, password).then((authData) => {
             console.log("User created")
+            let user = authData.user
             if (user && user.emailVerified === false) {
                 user.sendEmailVerification().then(function(){
                     console.log("email verification sent to user");
+                }).catch((error) => {
+                    console.log("Error in sending verification email")
                 });
             }
             res.send({"Status": "Success"})
@@ -57,7 +61,8 @@ app.post("/authentication", (req, res) => {
             }
         })
     } else if (req.body.action_type != null && req.body.action_type == "Sign In") {
-        firebase.auth().signInWithEmailAndPassword(emailID, password).then((user) => {
+        firebase.auth().signInWithEmailAndPassword(emailID, password).then((authData) => {
+            let user = authData.user
             if (user && user.emailVerified === false) {     
                 res.send({"Status": "Error", "Message": "Unverified Email Address"})
             } else {
