@@ -95,6 +95,7 @@ app.post("/authentication", (req, res) => {
                     })
                     if (is_signed_in == 0) {
                         res.send({"Status": "Error", "Message": "This account is of a different type."})
+                        firebase.auth().currentUser.signOut()
                     }
                 })
             }
