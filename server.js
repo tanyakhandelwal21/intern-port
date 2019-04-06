@@ -24,7 +24,7 @@ app.post("/authentication", (req, res) => {
     
     console.log("Encoded: " + user_details)
     user_details = Buffer.from(user_details, 'base64');
-    console.log("Decoded: " + user_details)
+    //console.log("Decoded: " + user_details)
 
     user_details = '' + user_details
 
