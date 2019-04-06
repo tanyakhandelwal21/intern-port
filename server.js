@@ -62,7 +62,7 @@ app.post("/authentication", (req, res) => {
                     })
                     res.send({"Status": "Success"})
                 }).catch((error) => {
-                    console.log("Error in sending verification email")
+                    console.log("Error in sending verification email: " + error.message)
                     res.send({"Status": "Error", "Message": error.message})
                 });
             }
