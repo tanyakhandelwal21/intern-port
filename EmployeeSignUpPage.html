@@ -2,6 +2,8 @@
 <html>
         <link rel="stylesheet" href="styles.css">
         <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="SignUpEmployee.js"></script>
     <title>Company Login</title>
 <body>
         <div id="header">
@@ -13,15 +15,15 @@
     <br/><br/>
         <form class="SignUp" id="signup">
             <label for="uname">Email:</label>
-            <input type="text" name="uname"placeholder="Email" >
+            <input type="text" name="uname"placeholder="Email" id="email" >
             <br/>
             <label for="password">Password:</label>
-            <input type="password" name="password"placeholder="Password" >
+            <input type="password" name="password"placeholder="Password" id="pass">
             <br/>
             <label for="password">Confirm Password:</label>
-            <input type="password" name="password"placeholder="Password" >
+            <input type="password" name="password"placeholder="Password" id="cpass">
             <br/>
-            <a href="EmployeeLoginPage.html"><button type="submit">Create Account!</button></a>
+            <button type="button" onclick="create_account()">Create Account!</button>
             <p>Please verify your account before logging in.</p>
         </form>
 </body>
