@@ -3,7 +3,7 @@ const bodyParser = require('body-parser')
 const firebase_import = require('firebase/app')
 const app = express().use(bodyParser.json())
 const firebase = firebase_import.initializeApp({
-    apiKey: process.env.API_KEYheroku,
+    apiKey: process.env.API_KEY,
     authDomain: "intern-port.firebaseapp.com",
     databaseURL: "https://intern-port.firebaseio.com",
     projectId: "intern-port",
