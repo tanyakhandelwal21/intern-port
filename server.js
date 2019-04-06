@@ -3,7 +3,7 @@ const bodyParser = require('body-parser')
 const firebase_import = require('firebase/app')
 const app = express().use(bodyParser.json())
 const firebase = firebase_import.initializeApp({
-    apiKey: process.env.API_KEY,
+    apiKey: process.env.API_KEYheroku,
     authDomain: "intern-port.firebaseapp.com",
     databaseURL: "https://intern-port.firebaseio.com",
     projectId: "intern-port",
@@ -95,7 +95,7 @@ app.post("/authentication", (req, res) => {
                     })
                     if (is_signed_in == 0) {
                         res.send({"Status": "Error", "Message": "This account is of a different type."})
-                        firebase.auth().currentUser.signOut()
+                        firebase.auth().signOut()
                     }
                 })
             }
