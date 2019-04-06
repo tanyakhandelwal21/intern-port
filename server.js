@@ -52,12 +52,18 @@ app.post("/authentication", (req, res) => {
             if (user && user.emailVerified === false) {
                 user.sendEmailVerification().then(function(){
                     console.log("email verification sent to user");
-                    var user_data = {
-                        "email": emailID,
-                        "uid": user.uid
-                    }
+                    var user_data = {}
                     if (auth_type == "Company") {
-                        user_data["company_name"] = req.body.company_name
+                        user_data = {
+                            "email": emailID,
+                            "uid": user.uid,
+                            "company_name": req.body.company_name
+                        }
+                    } else {
+                        user_data = {
+                            "email": emailID,
+                            "uid": user.uid
+                        }
                     }
                     root_db.child("Users").child(auth_type).child(user.uid).update(user_data)
                     res.send({"Status": "Success"})
