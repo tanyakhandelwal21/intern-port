@@ -56,13 +56,10 @@ app.post("/authentication", (req, res) => {
                         "email": emailID,
                         "uid": user.uid
                     }
-                    root_db.child("Users").child(auth_type).child(user.uid).update(user_data).catch((error) => {
-                        console.log("error adding to db")
-                        //res.send({"Status": "Error", "Message": error.message})
-                    })
+                    root_db.child("Users").child(auth_type).child(user.uid).update(user_data)
                     res.send({"Status": "Success"})
                 }).catch((error) => {
-                    console.log("Error in sending verification email: " + error.message)
+                    console.log("Error: " + error.message)
                     res.send({"Status": "Error", "Message": error.message})
                 });
             }

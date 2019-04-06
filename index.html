@@ -13,7 +13,7 @@
                 let base64 = btoa(combination);
                 let json = {"user_details": base64, "action_type": "Sign In"}
 
-                $.post("http://localhost:1337/authentication", json,  function(data, status) {
+                $.post("https://cors-anywhere.herokuapp.com/https://intern-port-server.herokuapp.com/authentication", json,  function(data, status) {
                     console.log(data)
                 })
             }
