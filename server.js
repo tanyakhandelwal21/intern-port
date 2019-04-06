@@ -52,9 +52,12 @@ app.post("/authentication", (req, res) => {
             if (user && user.emailVerified === false) {
                 user.sendEmailVerification().then(function(){
                     console.log("email verification sent to user");
-                    let user_data = {
+                    var user_data = {
                         "email": emailID,
                         "uid": user.uid
+                    }
+                    if (auth_type == "Company") {
+                        user_data["company_name"] = req.body.company_name
                     }
                     root_db.child("Users").child(auth_type).child(user.uid).update(user_data)
                     res.send({"Status": "Success"})
@@ -75,8 +78,19 @@ app.post("/authentication", (req, res) => {
             if (user && user.emailVerified === false) {     
                 res.send({"Status": "Error", "Message": "Unverified Email Address"})
             } else {
-                console.log("User signed in")
-                res.send({"Status": "Success", "UID": user.uid})
+                root_db.child("Users").child(auth_type).on('value', (snap) => {
+                    var is_signed_in = 0;
+                    snap.forEach((node) => {
+                        if (node.key == user.uid) {
+                            console.log("User signed in")
+                            res.send({"Status": "Success", "UID": user.uid})
+                            is_signed_in = 1;
+                        }
+                    })
+                    if (is_signed_in == 0) {
+                        res.send({"Status": "Error", "Message": "This account is of a different type."})
+                    }
+                })
             }
         }).catch((error) => {
             if (error != null) {
