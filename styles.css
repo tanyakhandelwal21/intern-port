@@ -30,7 +30,7 @@ li h1 {
   font-family: Montserrat;
 }
 
-#employee-choice {
+#employee-login {
   margin-left: 27% !important;
   margin-right: 3% !important;
 } 
@@ -58,3 +58,14 @@ li h1 {
   transform: scale(1.2);
 }
 
+#login {
+  padding: 10px 10px;
+  background-color: white;
+  margin-left: 35%;
+  margin-right: 35%;
+}
+
+#login input[type="text"]
+{
+  size: 300px;
+}
