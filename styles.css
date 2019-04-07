@@ -59,13 +59,59 @@ li h1 {
 }
 
 #login {
-  padding: 10px 10px;
-  background-color: white;
+  padding: 15px 10px;
+  background-color: #e24a57;
   margin-left: 35%;
   margin-right: 35%;
 }
 
-#login input[type="text"]
-{
+#login input[type="text"] {
+  margin-top: 5px;
+  padding: 5px 10px;
+  margin-left: 7%;
+  width: 80%;
   size: 300px;
+}
+
+#login input[type="password"] {
+  margin-top: 5px;
+  padding: 5px 10px;
+  width: 80%;
+  margin-left: 7%;
+}
+
+#login label {
+  color: white;
+  margin-left: 7%;
+  font-family: Montserrat;
+}
+
+#login button {
+  font-family: Montserrat;
+  margin-bottom: 1%;
+  margin-left: 39%;
+  background-color: transparent;
+  border: none;
+  color: white;
+  padding: 10px 22px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#login button:hover {
+  color: #fce5e5;
+}
+
+#signup {
+  font-family: Montserrat;
+  color: white;
+  margin-left: 39%;
+}
+
+#signup:visited {
+  font-family: Montserrat;
+  color: white;
 }
