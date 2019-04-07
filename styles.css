@@ -159,3 +159,9 @@ li h1 {
 #signup button:hover {
   color: #fce5e5;
 }   
+
+#signup-link {
+  color: white;
+  font-family: Montserrat;
+  margin-left: 40%;
+}
