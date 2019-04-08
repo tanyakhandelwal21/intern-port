@@ -47,7 +47,8 @@ ul {
 
   #line
   {
-    margin: 2%;
+    margin-left: 21%;
+    margin-right: 1%;
   }
 
   #main h2 {
@@ -56,4 +57,8 @@ ul {
     color: black;
     position: relative;
     text-align: center;
+  }
+
+  #group-name {
+    font-family: Montserrat;
   }
