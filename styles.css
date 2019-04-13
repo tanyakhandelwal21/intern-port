@@ -154,6 +154,7 @@ li h1 {
   display: inline-block;
   font-size: 16px;
   cursor: pointer;
+  margin-left: 30%;
 }
 
 #signup button:hover {

@@ -3,7 +3,7 @@ html {
 }
 
 body {
-    background-color: white !important;
+    background-color: #fff2f2 !important;
     margin: 0;
 }
 
@@ -15,7 +15,7 @@ ul {
     background-color: #a82530;
     position: fixed;
     height: 100%;
-    overflow: auto;
+    overflow: hidden;
   }
   
   li a {
@@ -43,6 +43,7 @@ ul {
     font-variant: small-caps;
     text-align: center;
     font-size: 40px;
+    padding-bottom: 10px;
   }
 
   #line
@@ -51,7 +52,7 @@ ul {
     margin-right: 1%;
   }
 
-  #main h2 {
+  #main-card h2 {
     padding: 0%;
     margin: 0%;
     color: black;
@@ -59,6 +60,115 @@ ul {
     text-align: center;
   }
 
-  #group-name {
+  .group-name {
     font-family: Montserrat;
+    font-size: 30px;
+    margin-left: 21% !important;
+  }
+
+  #post-box {
+    margin-left: 25%;
+    margin-right: 10%;
+    width: 65%;
+    margin-top: 0.5%;
+    height: 50px;
+  }
+
+  #label-for-post {
+    font-family: Montserrat;
+    font-size: 15px;
+    text-align: left !important;
+    margin-left: 25% !important; 
+  }
+
+  #submit-post {
+    margin-left: 80%;
+    margin-top: 0.5%;
+    padding: 10px 30px;
+    background-color: #a82530;
+    color: white;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    font-family: Montserrat;
+    border-radius: 5%;
+    border: none;
+  }
+
+  #submit-post:hover {
+    background-color: #7a1119;
+  }
+
+  #main-card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    padding-bottom: 1.5% !important;
+    background-color: white;
+    overflow: hidden;
+  }
+
+  #main-card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }
+
+  input[type="text"]::placeholder {
+    text-align: left;
+    margin-top: 0%;
+    font-family: Montserrat;
+    font-size: 15px;
+    margin-left: 5%;
+    padding-left: 1.5%;
+  }
+
+  .post-card {
+    margin-left: 25%;
+    margin-right: 10%;
+    margin-top: 1%;
+    width: 65%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: transform 0.3s;
+    background-color: white;
+    margin-bottom: 2%;
+  }
+
+  .post-card:hover {
+    transform: scale(1.1);
+    cursor: default;
+  }
+
+  .name {
+    font-family: Montserrat;
+    padding-top: 10px;
+    padding-left: 10px;
+    font-size: 25px;
+    margin-bottom: 0%;
+    display: inline-block;
+  }
+
+  .line {
+    margin-left: 5% !important;
+    margin-right: 5% !important;
+  }
+
+  .position {
+    font-size: 15px;
+    font-family: Montserrat;
+    padding-left: 10px;
+    margin-top: 0%;
+    padding-top: 0%; 
+  }
+
+  .post {
+    font-family: Montserrat;
+    text-align: center;
+  }
+
+  .time {
+    display: inline-block;
+    text-align: right !important;
+    align-self: right;
+    box-align: right;
+    font-family: Montserrat;
+    color: #898888;
+    font-size: 18px;
   }
