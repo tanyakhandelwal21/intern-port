@@ -16,8 +16,66 @@ require('firebase/database')
 
 const root_db = firebase.database().ref()
 
-app.listen(process.env.PORT || 1337, () => console.log("Server is listening"))
+app.listen(process.env.PORT || 8100, () => console.log("Server is listening"))
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.get("/populate-groups", (req, res) => {
+    console.log(req.query)
+    root_db.child("Users").orderByValue().on("value", (snapshot) => {
+        let user_data = snapshot.val()
+        var employee_type = ""
+        var email_ID_user = ""
+
+        for (var key in user_data.Employee) {
+            if (key == req.query.UID) {
+                employee_type = "Employee"
+                email_ID_user = user_data.Employee[key].email
+                break
+            }
+        }
+
+        if (employee_type == "") {
+            for (var key in user_data.Company) {
+                if (key == req.query.UID) {
+                    employee_type = "Company"
+                    email_ID_user = user_data.Employee[key].email
+                    break
+                }
+            }
+        }
+
+        if (employee_type == "") {
+            res.send({"Status": "Error", "Message": "User doesn't exist."})
+            // process.exit(0)
+        } else {
+            let domain_name = email_ID_user.substr(email_ID_user.indexOf("@") + 1, email_ID_user.indexOf(".", email_ID_user.indexOf("@") + 1) - email_ID_user.indexOf("@") - 1)
+            console.log(domain_name)
+            root_db.child("Companies").orderByKey().on("value", (snapshot) => {
+                let data = snapshot.val()
+                var heading_group = ""
+                for (let name in data) {
+                    var name_lower = name.toLowerCase()
+                    if (name_lower == domain_name) {
+                        heading_group = name
+                        break
+                    }
+                }
+
+                if (heading_group == "") {
+                    res.send({"Status": "Error", "Message": "Company doesn't have an account with us yet."})
+                    // process.exit(0)
+                } else {
+                    let data_to_send = {
+                        "company_name": heading_group,
+                        "groups_data": data[heading_group]
+                    }
+                    res.send(data_to_send)
+                }
+            })
+        }
+    })
+    // res.send(req.query)
+})
 
 app.post("/authentication", (req, res) => {
     var user_details = req.body.user_details;
@@ -34,7 +92,7 @@ app.post("/authentication", (req, res) => {
 
     console.log("Email: " + emailID)
 
-    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!re.test(emailID)) {
         res.send({"Status": "Error", "Message": "Invalid Email ID."})
         return
