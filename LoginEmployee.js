@@ -12,11 +12,13 @@ function sign_in() {
         "auth_type": "Employee"
     }
 
-    $.post("https://cors-anywhere.herokuapp.com/https://intern-port-server.herokuapp.com/authentication", data_json, (data, status) => {
+    $.post("http://localhost:8100/authentication", data_json, (data, status) => {
 
         if (data.Status == "Error") {
             alert(data.Message)
         } else if (data.Status == "Success") {
+            console.log("UID: " + data.UID);
+            localStorage.setItem("UID", data.UID)
             window.location.href = "Dashboard.html"
         }
     })
