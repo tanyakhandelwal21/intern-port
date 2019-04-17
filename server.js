@@ -19,6 +19,19 @@ const root_db = firebase.database().ref()
 app.listen(process.env.PORT || 8100, () => console.log("Server is listening"))
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.get("/get-posts", (req, res) => {
+    root_db.child("Companies").orderByValue().once("value", (snapshot) => {
+        let data = snapshot.val()
+        // console.log(data)
+        for (var key in data) {
+            if (data[key].name == req.query.name) {
+                res.send(data[key].groups)
+            }
+        }
+        // res.send(data)
+    })
+})
+
 app.get("/populate-groups", (req, res) => {
     console.log(req.query)
     root_db.child("Users").orderByValue().once("value", (snapshot) => {
