@@ -2,7 +2,7 @@ function create_account() {
     console.log("Inside function!")
     let password = document.getElementById("pass").value;
     let confirmed_password = document.getElementById("cpass").value
-    let company_name = document.getElementById("cname").value.toLowerCase()
+    let company_name = document.getElementById("cname").value
 
     if (password != confirmed_password) {
         alert("Passwords don't match. Try again.")
@@ -26,7 +26,7 @@ function create_account() {
         if (data.Status == "Error") {
             alert(data.Message)
         } else if (data.Status == "Success") {
-            window.location.href = "index.html"
+            window.location.href = "CompanyLoginPage.html"
         }
     })
 }

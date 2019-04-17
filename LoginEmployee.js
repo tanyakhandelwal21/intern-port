@@ -19,7 +19,7 @@ function sign_in() {
         } else if (data.Status == "Success") {
             console.log("UID: " + data.UID);
             localStorage.setItem("UID", data.UID)
-            window.location.href = "Dashboard.html"
+            window.location.href = "DashboardLoginPage.html"
         }
     })
 }
