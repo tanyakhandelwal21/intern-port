@@ -1,13 +1,10 @@
-let UID = localStorage.getItem("UID")
-console.log("UID: " + UID);
-
-let data_to_send = {
-    "UID": UID
-}
-
-$.get("http://localhost:8100/populate-groups", data_to_send).done(function (response) {
-    if (response.Status == "Error") {
-        alert(response.Message)
-        window.location.href = "index.html"
+$(document).ready(() => {
+    let uid = localStorage.getItem("UID")
+    var data = {
+        "UID": uid
     }
+    $.get("http://localhost:8100/populate-groups", data, (data, status) => {
+        console.log(data)
+        $("#company-name").replaceWith("<li id=\"company-name\">" + data.company_name + "</li>")
+    })
 })
