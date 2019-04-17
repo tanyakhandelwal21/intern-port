@@ -55,7 +55,7 @@ li h1 {
 
 #main button:hover {
   background-color: #a82530;
-  transform: scale(1.2);
+  transform: scale(1.1);
 }
 
 #login {
@@ -63,6 +63,7 @@ li h1 {
   background-color: #a82530;
   margin-left: 35%;
   margin-right: 35%;
+  border-radius: 5%;
 }
 
 #login input[type="text"] {

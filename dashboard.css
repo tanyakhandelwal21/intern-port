@@ -43,7 +43,6 @@ ul {
     font-variant: small-caps;
     text-align: center;
     font-size: 40px;
-    padding-bottom: 10px;
   }
 
   #line
@@ -64,6 +63,8 @@ ul {
     font-family: Montserrat;
     font-size: 30px;
     margin-left: 21% !important;
+    display: inline-block;
+    text-align: center;
   }
 
   #post-box {
@@ -171,4 +172,20 @@ ul {
     font-family: Montserrat;
     color: #898888;
     font-size: 18px;
+  }
+
+  li span {
+    content: "\002B";
+    font-weight: bolder;
+    border-radius: 20%;
+    border: black;
+  }
+
+  #company-name {
+    color: white;
+    font-family: Montserrat;
+    font-variant: small-caps;
+    text-align: center;
+    font-size: 20px;
+    padding-bottom: 10px; 
   }
