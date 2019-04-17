@@ -7,4 +7,5 @@ $(document).ready(() => {
         console.log(data)
         $("#company-name").replaceWith("<li id=\"company-name\">" + data.company_name + "</li>")
     })
+
 })

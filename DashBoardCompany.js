@@ -7,8 +7,10 @@ $(document).ready(() => {
         console.log(data)
         $("#company-name").replaceWith("<li id=\"company-name\">" + data.company_name + "</li>")
 
-        if (data.group_data != {}) {
-            
+        if (data.group_data != {}) {   
+            for (var key in data.group_data) {
+                $("<li><a id=\"" + key + "\"href=\"javascript:void(0)\" class=\"group\" onclick=\"group_clicked()\">" + key + "</a></li>").insertAfter("#company-name")
+            }
         }
     })
 
@@ -30,3 +32,13 @@ $(document).ready(() => {
         })
     })
 })
+
+function group_clicked() {
+    console.log("Clicked: " + event.srcElement.id)
+    document.getElementById(event.srcElement.id).classList += " active"
+    document.getElementsByClassName("group-name")[0].innerText = event.srcElement.id
+
+    $.get("http://localhost:8100/get-posts", {"name": document.getElementById("company-name").innerText}, (data, status) => {
+        console.log(data[event.srcElement.id])
+    })
+}
