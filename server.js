@@ -21,10 +21,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/populate-groups", (req, res) => {
     console.log(req.query)
-    root_db.child("Users").orderByValue().on("value", (snapshot) => {
+    root_db.child("Users").orderByValue().once("value", (snapshot) => {
         let user_data = snapshot.val()
         var employee_type = ""
         var email_ID_user = ""
+        var company_UID = "";
 
         for (var key in user_data.Employee) {
             if (key == req.query.UID) {
@@ -38,7 +39,7 @@ app.get("/populate-groups", (req, res) => {
             for (var key in user_data.Company) {
                 if (key == req.query.UID) {
                     employee_type = "Company"
-                    email_ID_user = user_data.Employee[key].email
+                    company_UID = key
                     break
                 }
             }
@@ -50,31 +51,51 @@ app.get("/populate-groups", (req, res) => {
         } else {
             let domain_name = email_ID_user.substr(email_ID_user.indexOf("@") + 1, email_ID_user.indexOf(".", email_ID_user.indexOf("@") + 1) - email_ID_user.indexOf("@") - 1)
             console.log(domain_name)
-            root_db.child("Companies").orderByKey().on("value", (snapshot) => {
-                let data = snapshot.val()
-                var heading_group = ""
-                for (let name in data) {
-                    var name_lower = name.toLowerCase()
-                    if (name_lower == domain_name) {
-                        heading_group = name
-                        break
+            
+            if (company_UID == "") {
+                for (var key in user_data.Company) {
+                    if (user_data.Company[key].company_name.toLowerCase() == domain_name) {
+                        company_UID = key
                     }
                 }
+            }
 
-                if (heading_group == "") {
-                    res.send({"Status": "Error", "Message": "Company doesn't have an account with us yet."})
-                    // process.exit(0)
-                } else {
-                    let data_to_send = {
-                        "company_name": heading_group,
-                        "groups_data": data[heading_group]
+            if (company_UID == "") {
+                res.send({"Status": "Error", "Message": "Company doesn't have an account with us yet."})
+            } else {
+                root_db.child("Companies").child(company_UID).orderByKey().once("value", (snapshot) => {
+                    let data = snapshot.val()
+                    // res.send(data)
+                    var data_to_send = {
+                        "company_name": data.name
                     }
+
+                    if (data.groups == null) {
+                        data_to_send.group_data = {}
+                    } else {
+                        data_to_send.group_data = data.groups
+                    }
+
+                    console.log(data_to_send)
                     res.send(data_to_send)
-                }
-            })
+                })
+            }
+            
         }
     })
     // res.send(req.query)
+})
+
+app.post("/add-group", (req, res) => {
+    let group_details = req.body;
+    console.log("Add group")
+    console.log(req.body)
+
+    root_db.child("Companies").child(group_details.uid).child("groups").child(group_details.name).set({
+        "name": group_details.name,
+        "members": null
+    })
+    res.sendStatus(200)
 })
 
 app.post("/authentication", (req, res) => {
@@ -124,6 +145,16 @@ app.post("/authentication", (req, res) => {
                         }
                     }
                     root_db.child("Users").child(auth_type).child(user.uid).update(user_data)
+                    
+                    if (auth_type == "Company") {
+                        user_data = {
+                            "name": req.body.company_name,
+                            "groups": {}
+                        }
+
+                        root_db.child("Companies").child(user.uid).update(user_data)
+                    }
+
                     res.send({"Status": "Success"})
                 }).catch((error) => {
                     console.log("Error: " + error.message)
@@ -142,7 +173,7 @@ app.post("/authentication", (req, res) => {
             if (user && user.emailVerified === false) {     
                 res.send({"Status": "Error", "Message": "Unverified Email Address"})
             } else {
-                root_db.child("Users").child(auth_type).on('value', (snap) => {
+                root_db.child("Users").child(auth_type).once('value', (snap) => {
                     var is_signed_in = 0;
                     snap.forEach((node) => {
                         if (node.key == user.uid) {
