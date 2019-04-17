@@ -104,11 +104,43 @@ app.post("/add-group", (req, res) => {
     console.log("Add group")
     console.log(req.body)
 
-    root_db.child("Companies").child(group_details.uid).child("groups").child(group_details.name).set({
+    root_db.child("Companies").child(group_details.uid).child("groups").child(group_details.name.toLowerCase().replace(" ", "_")).set({
         "name": group_details.name,
         "members": null
     })
     res.sendStatus(200)
+})
+
+app.post("/make-post", (req, res) => {
+    let data = {
+        "post_text": req.body.post,
+        "timestamp": req.body.timestamp,
+        "uid": req.body.uid
+    }
+    console.log("posting")
+    console.log(data)
+    root_db.child("Companies").orderByKey().once("value", (snapshot) => {
+        let val = snapshot.val()
+
+        for (let key in val) {
+            if (val[key].name == req.body.company) {
+                root_db.child("Companies").child(key).child("groups").child(req.body.group).child("posts").push(data)
+            }
+        }
+    })
+    res.sendStatus(200)
+})
+
+app.get("/logout", (req, res) => {
+    firebase.auth().signOut().then(() => {          
+        console.log("User signed out")
+        res.send({"Status": "Success"})
+    }).catch((error) => {
+        if (error != null) {
+            console.log(error.message)
+            res.send({"Status": "Error", "Message": error.message})
+        }
+    })
 })
 
 app.post("/authentication", (req, res) => {
@@ -208,16 +240,5 @@ app.post("/authentication", (req, res) => {
             }
         })
 
-    } else if (req.body.action_type != null && req.body.action_type == "Sign Out") {
-        firebase.auth().signOut().then(() => {          
-            console.log("User signed out")
-            res.send({"Status": "Success"})
-        }).catch((error) => {
-            if (error != null) {
-                console.log(error.message)
-                res.send({"Status": "Error", "Message": error.message})
-            }
-        })
-
-    } 
+    }
 })
