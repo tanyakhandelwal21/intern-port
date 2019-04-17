@@ -3,6 +3,7 @@ $(document).ready(() => {
     var data = {
         "UID": uid
     }
+
     $.get("http://localhost:8100/populate-groups", data, (data, status) => {
         console.log(data)
         $("#company-name").replaceWith("<li id=\"company-name\">" + data.company_name + "</li>")
@@ -57,10 +58,22 @@ $(document).ready(() => {
 })
 
 function group_clicked(id_called) {
+    if (!($("#main-card").length)) {
+        $("#side-bar").after("<div id=\"main-card\">\
+                                <br/> \
+                                <h2 class=\"group-name\"></h2> \
+                                <hr id=\"line\"> \
+                                <h2 id =\"label-for-post\">Let other interns know what's on your mind!</h3> \
+                                <input type=\"text\" placeholder=\"Write a post..\" id=\"post-box\">   </input> \
+                                <br/> \
+                                <input type=\"button\" id=\"submit-post\" value=\"POST!\"/> \
+                            </div>")
+    }
     console.log("Clicked: " + event.srcElement.id)
     $("a").removeClass(" active")
     document.getElementById(event.srcElement.id).classList += " active"
     document.getElementsByClassName("group-name")[0].innerText = event.srcElement.id
+
 
     $.get("http://localhost:8100/get-posts", {"name": document.getElementById("company-name").innerText}, (data, status) => {    
         // var data_returned = JSON.parse(data)
@@ -68,5 +81,19 @@ function group_clicked(id_called) {
         let id = id_called.toLowerCase().replace(" ", "_")
         console.log("id: " + id)
         console.log(data[id])
+
+        if (data[id].posts != null) {
+            for (let key in data[id].posts) {
+                $("#main-card").after(" <div class=\"post-card\">\
+                                        <div class=\"container\"></div> \
+                                            <h1 class=\"name\"> Tanya Khandelwal</h1> \
+                                            <h3 class=\"time\">May 18 5:09 PM</h3> \
+                                            <h2 class=\"position\">Software Engineering Intern</h2> \
+                                            <p class=\"post\">Who's hyped for the internship??</p> \
+                                            <br/> \
+                                        </div> \
+                                    </div>")
+            }
+        }
     })
 }
