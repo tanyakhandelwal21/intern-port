@@ -9,7 +9,7 @@ $(document).ready(() => {
 
         if (data.group_data != {}) {   
             for (var key in data.group_data) {
-                $("<li><a id=\"" + key + "\"href=\"javascript:void(0)\" class=\"group\" onclick=\"group_clicked()\">" + key + "</a></li>").insertAfter("#company-name")
+                $("<li><a id=\"" + data.group_data[key].name + "\"href=\"javascript:void(0)\" class=\"group\" onclick=\"group_clicked(this.id)\">" + data.group_data[key].name + "</a></li>").insertAfter("#company-name")
             }
         }
     })
@@ -31,14 +31,30 @@ $(document).ready(() => {
             console.log(data)
         })
     })
+
+    $("#logout").click(() => {
+        $.get("http://localhost:8100/logout", null, (data, status) => {
+            if (data.Status == "Error") {
+                alert(data.Message)
+            } else if (data.Status == "Success") {
+                console.log("logged out")
+                window.location.href = "index.html"
+            }
+        })
+    })
 })
 
-function group_clicked() {
+function group_clicked(id_called) {
     console.log("Clicked: " + event.srcElement.id)
+    $("a").removeClass(" active")
     document.getElementById(event.srcElement.id).classList += " active"
     document.getElementsByClassName("group-name")[0].innerText = event.srcElement.id
 
-    $.get("http://localhost:8100/get-posts", {"name": document.getElementById("company-name").innerText}, (data, status) => {
-        console.log(data[event.srcElement.id])
+    $.get("http://localhost:8100/get-posts", {"name": document.getElementById("company-name").innerText}, (data, status) => {    
+        // var data_returned = JSON.parse(data)
+        console.log(data)
+        let id = id_called.toLowerCase().replace(" ", "_")
+        console.log("id: " + id)
+        console.log(data[id])
     })
 }
