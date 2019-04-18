@@ -76,15 +76,17 @@ function postclicked(id_called) {
     $.post("http://localhost:8100/make-post", json_to_post, (data, status) => {
         console.log(data)
 
-        $("#main-card").after("<div class=\"post-card\">\
-                                    <div class=\"container\"></div> \
-                                        <h1 class=\"name\">Tanya Khandelwal</h1> \
-                                        <h3 class=\"time\">" +  timestamp + "</h3> \
-                                        <h2 class=\"position\">Software Engineering Intern</h2> \
-                                        <p class=\"post\">" + post_text + "</p> \
-                                        <br/> \
-                                    </div> \
-                                </div>")
+        $.get("http://localhost:8100/get-user-details", {"uid": uid, "type": "Company"}, (data, status) => {
+            $("#main-card").after("<div class=\"post-card\">\
+                                        <div class=\"container\"></div> \
+                                            <h1 class=\"name\">" +  data.username + "</h1> \
+                                            <h3 class=\"time\">" +  timestamp + "</h3> \
+                                            <h2 class=\"position\">" +  data.position + "</h2> \
+                                            <p class=\"post\">" + post_text + "</p> \
+                                            <br/> \
+                                        </div> \
+                                    </div>")
+        })
     })
 }
 
@@ -120,9 +122,9 @@ function group_clicked(id_called) {
             for (let key in data[id].posts) {
                 $("#main-card").after("<div class=\"post-card\">\
                                             <div class=\"container\"></div> \
-                                                <h1 class=\"name\">Tanya Khandelwal</h1> \
+                                                <h1 class=\"name\">" +  data[id].posts[key].username + "</h1> \
                                                 <h3 class=\"time\">" +  data[id].posts[key].timestamp + "</h3> \
-                                                <h2 class=\"position\">Software Engineering Intern</h2> \
+                                                <h2 class=\"position\">" +  data[id].posts[key].position + "</h2> \
                                                 <p class=\"post\">" + data[id].posts[key].post_text + "</p> \
                                                 <br/> \
                                             </div> \
