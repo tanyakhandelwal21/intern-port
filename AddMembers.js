@@ -9,7 +9,7 @@ $(document).ready(() => {
         let company_name = localStorage.getItem("company")
 
         let data_json = {
-            "email": email_id,
+            "email": JSON.parse(localStorage.getItem("members")),
             "group": group_name,
             "company": company_name
         }
