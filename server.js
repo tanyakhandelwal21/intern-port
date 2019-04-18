@@ -32,6 +32,34 @@ app.get("/get-posts", (req, res) => {
     })
 })
 
+app.post("/add-members", (req, res) => {
+    root_db.child("Companies").orderByKey().once("value", (snapshot) => {
+        let data = snapshot.val()
+
+        for (let key in data) {
+            if (data[key].name == req.body.company) {
+                root_db.child("Users").child("Employee").orderByKey().once("value", (snapshot_inner) => {
+                    let data_users = snapshot_inner.val()
+                    var user_found = false
+                    for (let uid in data_users) {
+                        if (data_users[uid].email == req.body.email) {
+                            user_found = true
+                            var data_json = { }
+                            data_json[uid] = req.body.email.substring(0, req.body.email.indexOf("@"))
+                            root_db.child("Companies").child(key).child("groups").child(req.body.group.toLowerCase().replace(" ", "_")).child("members").update(data_json)
+                            res.send({"Status": "Success"})
+                        }
+                    }
+
+                    if (!user_found) {
+                        res.send({"Status": "Error", "Message": "There is no user with that email ID"})
+                    }
+                })
+            }
+        }
+    })
+})
+
 app.get("/populate-groups", (req, res) => {
     console.log(req.query)
     root_db.child("Users").orderByValue().once("value", (snapshot) => {
@@ -85,8 +113,22 @@ app.get("/populate-groups", (req, res) => {
 
                     if (data.groups == null) {
                         data_to_send.group_data = {}
-                    } else {
+                    } else if (employee_type == "Company") {
                         data_to_send.group_data = data.groups
+                    } else if (employee_type == "Employee") {
+                        console.log()
+                        console.log()
+                        console.log("Employee group data")
+                        console.log(data.groups)
+                        console.log()
+                        console.log()
+                        data_to_send.group_data = data.groups
+
+                        for (let group in data.groups) {
+                            if (data.groups[group].members == undefined || !(req.query.UID in data.groups[group].members)) {
+                                delete data_to_send.group_data[group]
+                            }
+                        }
                     }
 
                     console.log(data_to_send)
