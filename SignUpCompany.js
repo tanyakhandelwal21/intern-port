@@ -21,7 +21,7 @@ function create_account() {
         "company_name": company_name
     }
 
-    $.post("http://localhost:8100/authentication", data_json, (data, status) => {
+    $.post("https://cors-anywhere.herokuapp.com/https://intern-port-server.herokuapp.com/authentication", data_json, (data, status) => {
 
         if (data.Status == "Error") {
             alert(data.Message)
