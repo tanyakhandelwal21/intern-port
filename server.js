@@ -112,10 +112,9 @@ app.post("/add-group", (req, res) => {
 })
 
 app.post("/make-post", (req, res) => {
-    let data = {
+    var data = {
         "post_text": req.body.post,
-        "timestamp": req.body.timestamp,
-        "uid": req.body.uid
+        "timestamp": req.body.timestamp
     }
     console.log("posting")
     console.log(data)
@@ -124,7 +123,28 @@ app.post("/make-post", (req, res) => {
 
         for (let key in val) {
             if (val[key].name == req.body.company) {
-                root_db.child("Companies").child(key).child("groups").child(req.body.group).child("posts").push(data)
+                root_db.child("Users").orderByKey().once("value", (snapshot) => {
+                    let data_snap = snapshot.val()
+                    var hasFound = 0
+                    for (let key in data_snap.Company) {
+                        if (key == req.body.uid) {
+                            data.username = data_snap.Company[key].email.substring(0, data_snap.Company[key].email.indexOf("@"))
+                            data.position = "Company Representative"
+                            hasFound = 1
+                        }
+                    }
+
+                    if (hasFound == 0) {
+                        for (let key in data_snap.Employee) {
+                            if (key == req.body.uid) {
+                                data.username = data_snap.Employee[key].email.substring(0, data_snap.Employee[key].email.indexOf("@"))
+                                data.position = data_snap.Employee[key].position
+                                hasFound = 1
+                            }
+                        }
+                    }
+                    root_db.child("Companies").child(key).child("groups").child(req.body.group).child("posts").push(data)
+                })
             }
         }
     })
@@ -139,6 +159,30 @@ app.get("/logout", (req, res) => {
         if (error != null) {
             console.log(error.message)
             res.send({"Status": "Error", "Message": error.message})
+        }
+    })
+})
+
+app.get("/get-user-details", (req, res) => {
+    root_db.child("Users").child(req.query.type).orderByKey().once("value", (snapshot) => {
+        let data = snapshot.val()
+        console.log("User details")
+        console.log(data) 
+
+        for (let key in data)  {
+            if (key == req.query.uid && req.query.type == "Employee") {
+                var data_to_send = {
+                    "position": data[key].position,
+                    "username": data[key].email.substring(0, data[key].email.indexOf("@"))
+                }
+                res.send(data_to_send)
+            } else if (key == req.query.uid) {
+                var data_to_send = {
+                    "position": "Company Representative",
+                    "username": data[key].email.substring(0, data[key].email.indexOf("@"))
+                }
+                res.send(data_to_send)
+            }
         }
     })
 })
@@ -186,7 +230,8 @@ app.post("/authentication", (req, res) => {
                     } else {
                         user_data = {
                             "email": emailID,
-                            "uid": user.uid
+                            "uid": user.uid,
+                            "position": req.body.position
                         }
                     }
                     root_db.child("Users").child(auth_type).child(user.uid).update(user_data)
