@@ -24,7 +24,7 @@ function create_account() {
         if (data.Status == "Error") {
             alert(data.Message)
         } else if (data.Status == "Success") {
-            window.location.href = "index.html"
+            window.location.href = "EmployeeLoginPage.html"
         }
     })
 }

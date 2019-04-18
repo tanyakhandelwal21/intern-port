@@ -13,12 +13,11 @@ function sign_in() {
     }
 
     $.post("http://localhost:8100/authentication", data_json, (data, status) => {
-
         if (data.Status == "Error") {
             alert(data.Message)
         } else if (data.Status == "Success") {
             localStorage.setItem("UID", data.UID)
-            window.location.href = "Dashboard.html"
+            window.location.href = "CompanyDashboard.html"
         }
     })
 }
