@@ -145,6 +145,19 @@ app.get("/populate-groups", (req, res) => {
     // res.send(req.query)
 })
 
+app.post("/update-likes", (req, res) => {
+    root_db.child("Companies").orderByKey().once("value", (snapshot) => {
+        let data = snapshot.val()
+
+        for (let key in data) {
+            if (data[key].name == req.body.company) {
+                root_db.child("Companies").child(key).child("groups").child(req.body.group_name).child("posts").child(req.body.post_id).update({"likes": req.body.updated_likes})
+                res.sendStatus(200)
+            }
+        }
+    })
+})
+
 app.post("/add-group", (req, res) => {
     let group_details = req.body;
     console.log("Add group")
