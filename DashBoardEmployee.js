@@ -65,6 +65,8 @@ function postclicked(id_called) {
                                             <h3 class=\"time\">" +  timestamp + "</h3> \
                                             <h2 class=\"position\">" +  data.position + "</h2> \
                                             <p class=\"post\">" + post_text + "</p> \
+                                            <button type=\"button\"> Like! </button> \
+                                            <p class = \"num-likes\"> 3 Likes </p> \
                                             <br/> \
                                         </div> \
                                     </div>")
@@ -109,6 +111,8 @@ function group_clicked(id_called) {
                                                 <h3 class=\"time\">" +  data[id].posts[key].timestamp + "</h3> \
                                                 <h2 class=\"position\">" + data[id].posts[key].position + "</h2> \
                                                 <p class=\"post\">" + data[id].posts[key].post_text + "</p> \
+                                                <button type=\"button\"> Like! </button> \
+                                                <p class = \"num-likes\"> 3 Likes </p> \
                                                 <br/> \
                                             </div> \
                                         </div>")
