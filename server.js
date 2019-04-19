@@ -41,8 +41,9 @@ app.post("/add-members", (req, res) => {
                 root_db.child("Users").child("Employee").orderByKey().once("value", (snapshot_inner) => {
                     let data_users = snapshot_inner.val()
                     var user_found = false
-                    for (var i=0; i<req.body.email.length; i++) {
-                        let email = req.body.email[i]
+                    let array_emails = JSON.parse(req.body.email)
+                    for (var i=0; i<array_emails.length; i++) {
+                        let email = array_emails[i]
                         for (let uid in data_users) {
                             let value = data_users[uid].email
                             if (value == email) {
