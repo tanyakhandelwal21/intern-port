@@ -150,7 +150,7 @@ app.post("/update-likes", (req, res) => {
         let data = snapshot.val()
 
         for (let key in data) {
-            if (data[key].name == req.body.company) {
+            if (data[key].name == req.body.name) {
                 root_db.child("Companies").child(key).child("groups").child(req.body.group_name).child("posts").child(req.body.post_id).update({"likes": req.body.updated_likes})
                 res.sendStatus(200)
             }
