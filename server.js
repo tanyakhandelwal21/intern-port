@@ -160,7 +160,8 @@ app.post("/add-group", (req, res) => {
 app.post("/make-post", (req, res) => {
     var data = {
         "post_text": req.body.post,
-        "timestamp": req.body.timestamp
+        "timestamp": req.body.timestamp,
+        "likes": 0
     }
     console.log("posting")
     console.log(data)
@@ -189,12 +190,16 @@ app.post("/make-post", (req, res) => {
                             }
                         }
                     }
+                    let data_to_send = {
+                        "Status": "Success",
+                        "post_id": root_db.child("Companies").child(key).child("groups").child(req.body.group).child("posts").push().key
+                    }
                     root_db.child("Companies").child(key).child("groups").child(req.body.group).child("posts").push(data)
+                    res.send(data_to_send)
                 })
             }
         }
     })
-    res.sendStatus(200)
 })
 
 app.get("/logout", (req, res) => {
