@@ -19,7 +19,10 @@ $(document).ready(() => {
         let c_uid = localStorage.getItem("UID");
         var group_name = prompt("Enter a group name");
         if (group_name == null) {
+            $("#add-group").attr('href', 'javascript:void(0)')
             return;
+        } else {
+            $("#add-group").attr('href', '')
         }
 
         var data_json = {};
