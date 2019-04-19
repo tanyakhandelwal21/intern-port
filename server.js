@@ -49,7 +49,7 @@ app.post("/add-members", (req, res) => {
                             if (value == email) {
                                 user_found = true
                                 var data_json = { }
-                                data_json[uid] = req.body.email.substring(0, req.body.email.indexOf("@"))
+                                data_json[uid] = email.substring(0, email.indexOf("@"))
                                 root_db.child("Companies").child(key).child("groups").child(req.body.group.toLowerCase().replace(" ", "_")).child("members").update(data_json)
                                 res.send({"Status": "Success"})
                             } 
