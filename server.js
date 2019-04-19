@@ -13,7 +13,6 @@ const firebase = firebase_import.initializeApp({
 
 require('firebase/auth')
 require('firebase/database')
-
 const root_db = firebase.database().ref()
 
 app.listen(process.env.PORT || 8100, () => console.log("Server is listening"))
