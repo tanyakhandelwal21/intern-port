@@ -42,7 +42,7 @@ app.post("/add-members", (req, res) => {
                     let data_users = snapshot_inner.val()
                     var user_found = false
                     for (let uid in data_users) {
-                        console.log(data_users[uid].email)
+                        console.log("Emails: " + data_users[uid].email)
                         for (var i = 0; i < data_users[uid].email.length; i++) {
                             let value = data_users[uid].email[i]
                             if (value == req.body.email) {
