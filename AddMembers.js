@@ -16,13 +16,16 @@ $(document).ready(() => {
 
         $.post("https://cors-anywhere.herokuapp.com/https://intern-port-server.herokuapp.com/add-members", data_json, (data, status) => {
             console.log(data)
-            // window.location.href = "CompanyDashboard.html"
+            window.location.href = "CompanyDashboard.html"
         })
     })
 
     $("#delete").click(() => {
         let selected = document.getElementById("emails")
         let selected_email = selected.options[selected.selectedIndex].text
+        let members = JSON.parse(localStorage.getItem("members"))
+        members.splice(members.indexOf(selected_email), 1)
+        localStorage.setItem("members", JSON.stringify(members))
         $("#emails option[value='" + selected_email + "']").remove()
     })
 
