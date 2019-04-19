@@ -43,8 +43,9 @@ app.post("/add-members", (req, res) => {
                     var user_found = false
                     for (let uid in data_users) {
                         console.log("Emails: " + data_users[uid].email)
-                        for (var i = 0; i < data_users[uid].email.length; i++) {
-                            let value = data_users[uid].email[i]
+                        let emails = JSON.parse(data_users[uid].email)
+                        for (var i = 0; i < emails; i++) {
+                            let value = emails[i]
                             if (value == req.body.email) {
                                 user_found = true
                                 var data_json = { }
