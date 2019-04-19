@@ -20,6 +20,12 @@ $(document).ready(() => {
         })
     })
 
+    $("#delete").click(() => {
+        let selected = document.getElementById("emails")
+        let selected_email = selected.options[selected.selectedIndex].text
+        $("#emails option[value='" + selected_email + "']").remove()
+    })
+
     $("#add_member").click(() => {
         let email_id = $("#email").val()
         let members = JSON.parse(localStorage.getItem("members"))
