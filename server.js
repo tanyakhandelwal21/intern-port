@@ -42,16 +42,6 @@ app.post("/add-members", (req, res) => {
                     let data_users = snapshot_inner.val()
                     var user_found = false
                     for (let uid in data_users) {
-                        data_users[uid].email.forEach((value) => {
-                            if (value == req.body.email) {
-                                user_found = true
-                                var data_json = { }
-                                data_json[uid] = req.body.email.substring(0, req.body.email.indexOf("@"))
-                                root_db.child("Companies").child(key).child("groups").child(req.body.group.toLowerCase().replace(" ", "_")).child("members").update(data_json)
-                                res.send({"Status": "Success"})
-                            }
-                        })
-
                         for (var i = 0; i < data_users[uid].email.length; i++) {
                             let value = data_users[uid].email[i]
                             if (value == req.body.email) {
