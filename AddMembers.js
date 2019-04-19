@@ -7,16 +7,16 @@ $(document).ready(() => {
 
     $("#submit").click(() => {
         let company_name = localStorage.getItem("company")
-
+        console.log(localStorage.getItem("members"))
         let data_json = {
-            "email": JSON.parse(localStorage.getItem("members")),
+            "email": localStorage.getItem("members"),
             "group": group_name,
             "company": company_name
         }
 
         $.post("https://cors-anywhere.herokuapp.com/https://intern-port-server.herokuapp.com/add-members", data_json, (data, status) => {
             console.log(data)
-            window.location.href = "CompanyDashboard.html"
+            // window.location.href = "CompanyDashboard.html"
         })
     })
 
