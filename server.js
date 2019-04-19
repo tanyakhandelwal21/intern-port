@@ -151,7 +151,7 @@ app.post("/update-likes", (req, res) => {
 
         for (let key in data) {
             if (data[key].name == req.body.name) {
-                root_db.child("Companies").child(key).child("groups").child(req.body.group_name).child("posts").child(req.body.post_id).update({"likes": req.body.updated_likes})
+                root_db.child("Companies").child(key).child("groups").child(req.body.group_name).child("posts").child(req.body.post_id).update({"likes": parseInt(req.body.updated_likes)})
                 res.sendStatus(200)
             }
         }
