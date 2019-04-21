@@ -325,7 +325,7 @@ app.post("/authentication", (req, res) => {
         firebase.auth().signInWithEmailAndPassword(emailID, password).then((authData) => {
             let user = authData.user
             if (user && user.emailVerified === false) {     
-                res.send({"Status": "Error", "Message": "Unverified Email Address"})
+                res.send({"Status": "Error", "Message": "Unverified Email Address."})
             } else {
                 root_db.child("Users").child(auth_type).once('value', (snap) => {
                     var is_signed_in = 0;
