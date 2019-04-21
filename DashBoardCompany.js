@@ -87,7 +87,7 @@ function postclicked(id_called) {
                                                 <h3 class=\"time\">" +  timestamp + "</h3> \
                                                 <h2 class=\"position\">" +  data_inner.position + "</h2> \
                                                 <p class=\"post\">" + post_text + "</p> \
-                                                <button type=\"button\"> Like! </button> \
+                                                <button id=\"like-button\" type=\"button\"> Like </button> \
                                                 <p class = \"num-likes\"> 0 Likes </p> \
                                                 <br/> \
                                             </div> \
@@ -137,7 +137,7 @@ function group_clicked(id_called) {
                                 <br/> \
                                 <h2 class=\"group-name\"></h2> \
                                 <a href = \"javascript:void(0)\"> \
-                                    <button type=\"button\" onclick=\"add_members()\"><span>&#43;</span>  Add new members</button> \
+                                    <button type=\"button\" id=\"add-members\" onclick=\"add_members()\"><span>&#43;</span>  Add new members</button> \
                                 </a> \
                                 <hr id=\"line\"> \
                                 <h2 id =\"label-for-post\">Let other interns know what's on your mind!</h2> \
@@ -166,7 +166,7 @@ function group_clicked(id_called) {
                                                 <h3 class=\"time\">" +  data[id].posts[key].timestamp + "</h3> \
                                                 <h2 class=\"position\">" +  data[id].posts[key].position + "</h2> \
                                                 <p class=\"post\">" + data[id].posts[key].post_text + "</p> \
-                                                <button type=\"button\" onclick=\"like_pressed(this)\"> Like! </button> \
+                                                <button id=\"like-button\" type=\"button\" onclick=\"like_pressed(this)\"> Like </button> \
                                                 <p class = \"num-likes\">" + data[id].posts[key].likes + " Likes </p> \
                                                 <br/> \
                                             </div> \

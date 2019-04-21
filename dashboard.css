@@ -1,4 +1,6 @@
-
+* {
+  font-family: Montserrat;
+}
 html {
   position: relative;
 }
@@ -83,7 +85,7 @@ ul {
     margin-left: 25% !important; 
   }
 
-  #submit-post {
+  #submit-post, #add-members, #like-button {
     margin-left: 80%;
     margin-top: 0.5%;
     padding: 10px 30px;
@@ -97,7 +99,18 @@ ul {
     border: none;
   }
 
-  #submit-post:hover {
+  #like-button {
+    margin-left: 75%;
+    margin-right: 2%;
+    display: inline-block;
+  }
+
+  #add-members {
+    display: inline-block !important;
+    margin-left: 50% !important;
+  }
+
+  #submit-post:hover, #add-members:hover, #like-button:hover {
     background-color: #7a1119;
   }
 
@@ -189,4 +202,8 @@ ul {
     text-align: center;
     font-size: 20px;
     padding-bottom: 10px; 
+  }
+
+  .num-likes {
+    display: inline-block;
   }

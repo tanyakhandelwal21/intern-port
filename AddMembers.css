@@ -1,0 +1,70 @@
+* {
+    font-family: Montserrat;
+}
+
+body {
+        margin: 0;  
+        background: url('bg.png');  
+}
+
+li h1 {
+    font-size: 50px;
+    margin: 0;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-family: Montserrat;
+    font-variant: small-caps;
+}
+
+ul {
+    list-style: none;
+}
+
+#title {
+    color: white;
+    font-weight: normal !important;
+    text-align: center;
+}
+
+input[type="text"] {
+    border-radius: 5%;
+    width: 30%;
+    box-align: center;
+    margin: 0 auto;
+    display: inline-block;
+    margin-left: 30%;
+    padding: 10px 30px;
+}
+
+#add_member, #delete, #submit {
+  background-color: #a82530;
+  border: none;
+  color: white;
+  padding: 10px 30px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 5%;
+}
+
+#add_member:hover, #delete:hover, #submit:hover {
+    background-color: #7a1119;
+}
+
+#emails {
+    color: white;
+    background-color: #a82530;
+    padding: 20px 20px;
+    margin: 0 auto;
+    display: block;
+    border: none;
+}
+
+#delete {
+    margin-left: 39%;
+    display: inline-block;    
+}
