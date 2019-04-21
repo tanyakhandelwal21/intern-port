@@ -35,6 +35,7 @@ input[type="text"] {
     display: inline-block;
     margin-left: 30%;
     padding: 10px 30px;
+    color: black !important;
 }
 
 #add_member, #delete, #submit {
