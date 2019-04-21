@@ -3,6 +3,10 @@
   font-family: Montserrat;
 }
 
+input[type="text"] {
+  border-radius: 3%;
+}
+
 body {
     background: url('bg.png');
 }
