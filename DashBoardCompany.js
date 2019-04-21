@@ -140,7 +140,7 @@ function group_clicked(id_called) {
                                     <button type=\"button\" id=\"add-members\" onclick=\"add_members()\"><span>&#43;</span>  Add new members</button> \
                                 </a> \
                                 <hr id=\"line\"> \
-                                <h2 id =\"label-for-post\">Let other interns know what's on your mind!</h3> \
+                                <h2 id =\"label-for-post\">Let other interns know what's on your mind!</h2> \
                                 <input type=\"text\" placeholder=\"Write a post..\" id=\"post-box\">   </input> \
                                 <br/> \
                                 <input type=\"button\" href=\"\" onclick=\"postclicked(this.id)\" id=\"submit-post\" value=\"POST!\"/> \
