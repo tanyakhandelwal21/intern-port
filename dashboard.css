@@ -133,6 +133,7 @@ ul {
     font-size: 15px;
     margin-left: 5%;
     padding-left: 1.5%;
+    color: black !important;
   }
 
   .post-card {
