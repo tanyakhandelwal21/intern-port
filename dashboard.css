@@ -215,3 +215,39 @@ ul {
   .num-likes {
     display: inline-block;
   }
+
+  #joke {
+    text-align: center;
+    margin-left: 25% !important;
+    margin-right: 10%;
+    margin-top: 3%;
+  }
+
+  #joke p {
+    font-size: 20px;
+  }
+
+  #joke h1 {
+    font-size: 20px; 
+    font-weight: normal;
+  }
+
+  #greeting {
+    text-align: center;
+    margin-left: 25% !important;
+    margin-top: 10% !important;
+    margin-right: 10%;
+  }
+
+  #greeting h1 {
+    font-weight: normal;
+    font-size: 20px
+  }
+
+  #loader {
+    height: 10%; 
+    width: 10%;
+    margin-left: 52%; 
+    padding-bottom: 10%; 
+    background-color: #fff2f2 !important;
+  }

@@ -19,6 +19,7 @@ function sign_in() {
         } else if (data.Status == "Success") {
             console.log("UID: " + data.UID);
             localStorage.setItem("UID", data.UID)
+            localStorage.setItem("email", emailID)
             window.location.href = "EmployeeDashboard.html"
         }
     })

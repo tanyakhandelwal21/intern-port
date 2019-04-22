@@ -3,16 +3,31 @@ $(document).ready(() => {
     var data = {
         "UID": uid
     }
+
+    let username = localStorage.getItem("email").substring(0, localStorage.getItem("email").indexOf("@"));
+    $("#greeting_h1").append("Hi " + username + ", here is a joke for you!")
     $.get("https://cors-anywhere.herokuapp.com/https://intern-port-server.herokuapp.com/populate-groups", data, (data, status) => {
         console.log(data)
         $("#company-name").replaceWith("<li id=\"company-name\">" + data.company_name + "</li>")
-a
-        if (data.group_data != {}) {   
+    
+        if (data.group_data != {}) {         
             for (var key in data.group_data) {
                 $("<li><a id=\"" + data.group_data[key].name + "\"href=\"javascript:void(0)\" class=\"group\" onclick=\"group_clicked(this.id)\">" + data.group_data[key].name + "</a></li>").insertAfter("#company-name")
             }
         }
-    })
+
+        $.get("https://sv443.net/jokeapi/category/Programming?blacklistFlags=nsfw&religious&political", (data, status) => {
+            if(data.type == "single")
+                $("#joke").replaceWith("<div id=\"joke\"><h1>"+data.joke+"</h1></div>")
+            else { 
+                $("#joke").replaceWith("<div id=\"joke\"><p>"+data.setup+"</p> \
+                                    <p>"+data.delivery+"</p></div>")
+            }
+        }).always(() => {
+            console.log("Loaded")
+            $("#loader").remove()
+        });
+})
 
 
     $("#add-group").click(() => {
@@ -132,9 +147,12 @@ function group_clicked(id_called) {
     for (i = elements.length; i--;) {         
       elements[i].parentNode.removeChild(elements[i]);             
     }
-    if (!($("#main-card").length)) {
-        $("#side-bar").after("<div id=\"main-card\">\
-                                <br/> \
+    console.log($("#main-card").length)
+    if ($("#main-card").children().length == 0) { 
+        $("#joke").remove()
+        $("#greeting").remove()
+        $("#main-card").css("visibility", "visible")
+        $("#main-card").append("<br/> \
                                 <h2 class=\"group-name\"></h2> \
                                 <a href = \"javascript:void(0)\"> \
                                     <button type=\"button\" id=\"add-members\" onclick=\"add_members()\"><span>&#43;</span>  Add new members</button> \
@@ -143,9 +161,9 @@ function group_clicked(id_called) {
                                 <h2 id =\"label-for-post\">Let other interns know what's on your mind!</h2> \
                                 <input type=\"text\" placeholder=\"Write a post..\" id=\"post-box\">   </input> \
                                 <br/> \
-                                <input type=\"button\" href=\"\" onclick=\"postclicked(this.id)\" id=\"submit-post\" value=\"POST!\"/> \
-                            </div>")
+                                <input type=\"button\" href=\"\" onclick=\"postclicked(this.id)\" id=\"submit-post\" value=\"POST!\"/> ")
     }
+    
     console.log("Clicked: " + id_called)
     $("a").removeClass(" active")
     document.getElementById(id_called).classList += " active"

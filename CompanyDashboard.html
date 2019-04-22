@@ -1,17 +1,23 @@
 <!DOCTYPE html>
 <html>
-    <link rel="stylesheet" href="dashboard.css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-    <title>Company Dashboard</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<body>
-    <script src="DashBoardCompany.js"></script>
-    <ul scroll="no" id="side-bar">
-        <br/>
-        <li id="logo">Intern Port</li>
-        <li id="company-name"></li>
-        <li><a href="" id="add-group"><span>&#43;</span>  Add a new group</a></li>
-        <li id="logout"><a href="javascript:void(0)">Logout</a></li>
-    </ul>
+    <head>
+        <link rel="stylesheet" href="dashboard.css">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+        <title>Company Dashboard</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    </head>
+    <body>
+        <script src="DashBoardCompany.js"></script>
+        <ul scroll="no" id="side-bar">
+            <br/>
+            <li id="logo">Intern Port</li>
+            <li id="company-name"></li>
+            <li><a href="" id="add-group"><span>&#43;</span>  Add a new group</a></li>
+            <li id="logout"><a href="javascript:void(0)">Logout</a></li>
+        </ul>
+        <div id="main-card" style="visibility: hidden;"></div>
+        <div id="greeting"><h1 id="greeting_h1"></h1></div>
+        <div id="joke"></div>
+        <img src="loader.gif" id="loader">
     </body>
 </html>
