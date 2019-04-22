@@ -148,6 +148,7 @@ function group_clicked(id_called) {
     console.log($("#main-card").length)
     if ($("#main-card").length == 1) { 
         $("#joke").remove()
+        $("#greeting").remove()
         $("#main-card").css("visibility", "visible")
         $("#main-card").append("<br/> \
                                 <h2 class=\"group-name\"></h2> \
