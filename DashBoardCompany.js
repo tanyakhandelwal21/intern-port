@@ -134,8 +134,10 @@ function group_clicked(id_called) {
     for (i = elements.length; i--;) {         
       elements[i].parentNode.removeChild(elements[i]);             
     }
-    
-    $("#main-card").replaceWith("<div id=\"main-card\">\
+    console.log($("#main-card").length)
+    if ($("#main-card").length == 1) { 
+            $("#joke").remove()
+           $("#main-card").replaceWith("<div id=\"main-card\">\
                                 <br/> \
                                 <h2 class=\"group-name\"></h2> \
                                 <a href = \"javascript:void(0)\"> \
@@ -147,7 +149,7 @@ function group_clicked(id_called) {
                                 <br/> \
                                 <input type=\"button\" href=\"\" onclick=\"postclicked(this.id)\" id=\"submit-post\" value=\"POST!\"/> \
                             </div>")
-    $("#joke").replaceWith("<div id=\"joke\"></div>")
+    }
     
     console.log("Clicked: " + id_called)
     $("a").removeClass(" active")
