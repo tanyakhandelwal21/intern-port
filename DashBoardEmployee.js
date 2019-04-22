@@ -15,7 +15,7 @@ $(document).ready(() => {
                 $("<li><a id=\"" + data.group_data[key].name + "\"href=\"javascript:void(0)\" class=\"group\" onclick=\"group_clicked(this.id)\">" + data.group_data[key].name + "</a></li>").insertAfter("#company-name")
             }
         }
-        $.getJSON("https://sv443.net/jokeapi/category/Programming?blacklistFlags=nsfw&religious&political", function(data, status){
+        $.get("https://sv443.net/jokeapi/category/Programming?blacklistFlags=nsfw&religious&political", (data, status) => {
             if(data.type == "single")
                 $("#joke").replaceWith("<div id=\"joke\"><h1>"+data.joke+"</h1></div>")
             else { 
@@ -23,7 +23,10 @@ $(document).ready(() => {
                                     <p>"+data.delivery+"</p></div>")
             }
         });
-    })
+    }).always(() => {
+        console.log("Loaded")
+        $("#loader").remove()
+    });
 
     $("#logout").click(() => {
         $.get("https://cors-anywhere.herokuapp.com/https://intern-port-server.herokuapp.com/logout", null, (data, status) => {
