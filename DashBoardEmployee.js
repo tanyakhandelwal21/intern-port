@@ -22,11 +22,10 @@ $(document).ready(() => {
                 $("#joke").replaceWith("<div id=\"joke\"><p>"+data.setup+"</p> \
                                     <p>"+data.delivery+"</p></div>")
             }
-        });
-    }).always(() => {
-        console.log("Loaded")
-        $("#loader").remove()
-    });
+        }).always(() => {
+            $("#loader").remove()
+        });;
+    })
 
     $("#logout").click(() => {
         $.get("https://cors-anywhere.herokuapp.com/https://intern-port-server.herokuapp.com/logout", null, (data, status) => {
@@ -73,19 +72,43 @@ function postclicked(id_called) {
         console.log(data)
         if(data.Status == "Success") { 
         $.get("https://cors-anywhere.herokuapp.com/https://intern-port-server.herokuapp.com/get-user-details", {"uid": uid, "type": "Employee"}, (data, status) => {
-            $("#main-card").after("<div class=\"post-card\">\
+            $("#main-card").after("<div class=\"post-card\" id=" +  key + ">\
                                         <div class=\"container\"></div> \
                                             <h1 class=\"name\">" +  data.username + "</h1> \
                                             <h3 class=\"time\">" +  timestamp + "</h3> \
                                             <h2 class=\"position\">" +  data.position + "</h2> \
                                             <p class=\"post\">" + post_text + "</p> \
-                                            <button id=\"like-button\" type=\"button\"> Like </button> \
+                                            <button id=\"like-button\" type=\"button\" onclick=\"like_pressed(this)\"> Like </button> \
                                             <p class = \"num-likes\"> 3 Likes </p> \
                                             <br/> \
                                         </div> \
                                     </div>")
         })
     }
+    })
+}
+
+function like_pressed(elem) {
+    elem.parentNode.children[5].disabled = true;
+    let id_pressed = elem.parentNode.id
+
+    var current_like_text = $(elem.parentNode.children[6]).text()
+    current_like_text = current_like_text.substring(0, current_like_text.indexOf(" "))
+    current_like_text = parseInt(current_like_text) + 1
+
+    let data = {
+        "post_id": id_pressed,
+        "updated_likes": current_like_text,
+        "name": document.getElementById("company-name").innerText,
+        "group_name": document.getElementsByClassName("group-name")[0].innerText.toLowerCase().replace(" ", "_")
+    }
+
+    current_like_text = current_like_text + " Likes"
+
+    $(elem.parentNode.children[6]).text(current_like_text)
+
+    $.post("https://cors-anywhere.herokuapp.com/https://intern-port-server.herokuapp.com/update-likes", data, (data, res) => {
+        console.log(data)
     })
 }
 
@@ -123,7 +146,7 @@ function group_clicked(id_called) {
 
         if (data[id].posts != null) {
             for (let key in data[id].posts) {
-                $("#main-card").after("<div class=\"post-card\">\
+                $("#main-card").after("<div class=\"post-card\" id=" +  key + ">\
                                             <div class=\"container\"></div> \
                                                 <h1 class=\"name\">" + data[id].posts[key].username + "</h1> \
                                                 <h3 class=\"time\">" +  data[id].posts[key].timestamp + "</h3> \

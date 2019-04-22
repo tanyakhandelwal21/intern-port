@@ -120,6 +120,7 @@ function add_members() {
 }
 
 function like_pressed(elem) {
+    document.getElementById(elem.id).disabled = true;
     let id_pressed = elem.parentNode.id
 
     var current_like_text = $(elem.parentNode.children[6]).text()
