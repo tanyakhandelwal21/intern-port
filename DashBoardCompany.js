@@ -94,7 +94,7 @@ function postclicked(id_called) {
 
         if (data.Status == "Success") {
             $.get("https://cors-anywhere.herokuapp.com/https://intern-port-server.herokuapp.com/get-user-details", {"uid": uid, "type": "Company"}, (data_inner, status) => {
-                $("#post-card").replaceWith("<div class=\"post-card\" id=" +  data.post_id + ">\
+                $("#main-card").after("<div class=\"post-card\" id=" +  data.post_id + ">\
                                             <div class=\"container\"></div> \
                                                 <h1 class=\"name\">" +  data_inner.username + "</h1> \
                                                 <h3 class=\"time\">" +  timestamp + "</h3> \
@@ -146,8 +146,9 @@ function group_clicked(id_called) {
       elements[i].parentNode.removeChild(elements[i]);             
     }
     console.log($("#main-card").length)
-    if ($("#main-card").length == 1) { 
+    if ($("#main-card").children().length == 0) { 
         $("#joke").remove()
+        $("#greeting").remove()
         $("#main-card").css("visibility", "visible")
         $("#main-card").append("<br/> \
                                 <h2 class=\"group-name\"></h2> \
