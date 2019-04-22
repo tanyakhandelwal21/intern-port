@@ -6,9 +6,12 @@ $(document).ready(() => {
     $.get("https://cors-anywhere.herokuapp.com/https://intern-port-server.herokuapp.com/populate-groups", data, (data, status) => {
         console.log(data)
         $("#company-name").replaceWith("<li id=\"company-name\">" + data.company_name + "</li>")
-a
+        $("#main-card").replaceWith("<div id=\"main-card\">\
+        <p>Hello there!</p></div>")
+        
+
         if (data.group_data != {}) {   
-            ${"#"}
+            
             for (var key in data.group_data) {
                 $("<li><a id=\"" + data.group_data[key].name + "\"href=\"javascript:void(0)\" class=\"group\" onclick=\"group_clicked(this.id)\">" + data.group_data[key].name + "</a></li>").insertAfter("#company-name")
             }
@@ -82,7 +85,7 @@ function postclicked(id_called) {
 
         if (data.Status == "Success") {
             $.get("https://cors-anywhere.herokuapp.com/https://intern-port-server.herokuapp.com/get-user-details", {"uid": uid, "type": "Company"}, (data_inner, status) => {
-                $("#main-card").after("<div class=\"post-card\" id=" +  data.post_id + ">\
+                $("#post-card").replaceWith("<div class=\"post-card\" id=" +  data.post_id + ">\
                                             <div class=\"container\"></div> \
                                                 <h1 class=\"name\">" +  data_inner.username + "</h1> \
                                                 <h3 class=\"time\">" +  timestamp + "</h3> \
@@ -134,7 +137,7 @@ function group_clicked(id_called) {
       elements[i].parentNode.removeChild(elements[i]);             
     }
     if (!($("#main-card").length)) {
-        $("#side-bar").after("<div id=\"main-card\">\
+        $("#main-card").replaceWith("<div id=\"main-card\">\
                                 <br/> \
                                 <h2 class=\"group-name\"></h2> \
                                 <a href = \"javascript:void(0)\"> \
@@ -161,7 +164,7 @@ function group_clicked(id_called) {
 
         if (data[id].posts != null) {
             for (let key in data[id].posts) {
-                $("#main-card").after("<div class=\"post-card\" id=" +  key + ">\
+                $("#post-card").replaceWith("<div class=\"post-card\" id=" +  key + ">\
                                             <div class=\"container\"></div> \
                                                 <h1 class=\"name\">" +  data[id].posts[key].username + "</h1> \
                                                 <h3 class=\"time\">" +  data[id].posts[key].timestamp + "</h3> \
