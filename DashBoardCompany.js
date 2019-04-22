@@ -14,7 +14,16 @@ $(document).ready(() => {
                 $("<li><a id=\"" + data.group_data[key].name + "\"href=\"javascript:void(0)\" class=\"group\" onclick=\"group_clicked(this.id)\">" + data.group_data[key].name + "</a></li>").insertAfter("#company-name")
             }
         }
-    })
+
+        $.getJSON("https://sv443.net/jokeapi/category/Programming?blacklistFlags=nsfw&religious&political", function(data, status){
+            if(data.type == "single")
+                $("#joke").replaceWith("<div id=\"joke\"><h1>"+data.joke+"</h1></div>")
+            else { 
+                $("#joke").replaceWith("<div id=\"joke\"><p>"+data.setup+"</p> \
+                                    <h1>"+data.delivery+"</h1></div>")
+            }
+        });
+})
 
 
     $("#add-group").click(() => {
@@ -136,9 +145,9 @@ function group_clicked(id_called) {
     }
     console.log($("#main-card").length)
     if ($("#main-card").length == 1) { 
-            $("#joke").remove()
-           $("#main-card").replaceWith("<div id=\"main-card\">\
-                                <br/> \
+        $("#joke").remove()
+        $("#main-card").css("visibility", "visible")
+        $("#main-card").append("<br/> \
                                 <h2 class=\"group-name\"></h2> \
                                 <a href = \"javascript:void(0)\"> \
                                     <button type=\"button\" id=\"add-members\" onclick=\"add_members()\"><span>&#43;</span>  Add new members</button> \
@@ -147,8 +156,7 @@ function group_clicked(id_called) {
                                 <h2 id =\"label-for-post\">Let other interns know what's on your mind!</h2> \
                                 <input type=\"text\" placeholder=\"Write a post..\" id=\"post-box\">   </input> \
                                 <br/> \
-                                <input type=\"button\" href=\"\" onclick=\"postclicked(this.id)\" id=\"submit-post\" value=\"POST!\"/> \
-                            </div>")
+                                <input type=\"button\" href=\"\" onclick=\"postclicked(this.id)\" id=\"submit-post\" value=\"POST!\"/> ")
     }
     
     console.log("Clicked: " + id_called)
@@ -165,7 +173,7 @@ function group_clicked(id_called) {
 
         if (data[id].posts != null) {
             for (let key in data[id].posts) {
-                $("#post-card").replaceWith("<div class=\"post-card\" id=" +  key + ">\
+                $("#main-card").after("<div class=\"post-card\" id=" +  key + ">\
                                             <div class=\"container\"></div> \
                                                 <h1 class=\"name\">" +  data[id].posts[key].username + "</h1> \
                                                 <h3 class=\"time\">" +  data[id].posts[key].timestamp + "</h3> \

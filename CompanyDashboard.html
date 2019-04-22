@@ -5,16 +5,6 @@
         <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
         <title>Company Dashboard</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script>
-                    $.getJSON("https://sv443.net/jokeapi/category/Programming", function(data, status){
-                        if(data.type == "single")
-                            $("#joke").replaceWith("<div id=\"joke\"><h1>"+data.joke+"</h1></div>")
-                        else { 
-                            $("#joke").replaceWith("<div id=\"joke\"><p>"+data.setup+"</p> \
-                                               <h1>"+data.delivery+"</h1></div>")
-                        }
-                    });
-        </script>
     </head>
 <body>
     <script src="DashBoardCompany.js"></script>
@@ -25,9 +15,8 @@
         <li><a href="" id="add-group"><span>&#43;</span>  Add a new group</a></li>
         <li id="logout"><a href="javascript:void(0)">Logout</a></li>
     </ul>
-    <div id="main-card"></div>
+    <div id="main-card" style="visibility: hidden;"></div>
         <div id="joke">
         </div>
-    <div id="post-card"></div>
     </body>
 </html>

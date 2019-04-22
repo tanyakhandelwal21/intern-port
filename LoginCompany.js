@@ -17,6 +17,7 @@ function sign_in() {
             alert(data.Message)
         } else if (data.Status == "Success") {
             localStorage.setItem("UID", data.UID)
+            localStorage.setItem("email", emailID)
             window.location.href = "CompanyDashboard.html"
         }
     })
