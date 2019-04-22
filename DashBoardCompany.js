@@ -20,7 +20,7 @@ $(document).ready(() => {
                 $("#joke").replaceWith("<div id=\"joke\"><h1>"+data.joke+"</h1></div>")
             else { 
                 $("#joke").replaceWith("<div id=\"joke\"><p>"+data.setup+"</p> \
-                                    <h1>"+data.delivery+"</h1></div>")
+                                    <p>"+data.delivery+"</p></div>")
             }
         });
 })
