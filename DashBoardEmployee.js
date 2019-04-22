@@ -4,6 +4,8 @@ $(document).ready(() => {
         "UID": uid
     }
 
+    let username = localStorage.getItem("email").substring(0, localStorage.getItem("email").indexOf("@"));
+    $("#greeting_h1").append("Hi " + username + ", here is a joke for you!")
     $.get("https://cors-anywhere.herokuapp.com/https://intern-port-server.herokuapp.com/populate-groups", data, (data, status) => {
         console.log(data)
         $("#company-name").replaceWith("<li id=\"company-name\">" + data.company_name + "</li>")
@@ -13,6 +15,14 @@ $(document).ready(() => {
                 $("<li><a id=\"" + data.group_data[key].name + "\"href=\"javascript:void(0)\" class=\"group\" onclick=\"group_clicked(this.id)\">" + data.group_data[key].name + "</a></li>").insertAfter("#company-name")
             }
         }
+        $.getJSON("https://sv443.net/jokeapi/category/Programming?blacklistFlags=nsfw&religious&political", function(data, status){
+            if(data.type == "single")
+                $("#joke").replaceWith("<div id=\"joke\"><h1>"+data.joke+"</h1></div>")
+            else { 
+                $("#joke").replaceWith("<div id=\"joke\"><p>"+data.setup+"</p> \
+                                    <p>"+data.delivery+"</p></div>")
+            }
+        });
     })
 
     $("#logout").click(() => {
@@ -58,6 +68,7 @@ function postclicked(id_called) {
 
     $.post("https://cors-anywhere.herokuapp.com/https://intern-port-server.herokuapp.com/make-post", json_to_post, (data, status) => {
         console.log(data)
+        if(data.Status == "Success") { 
         $.get("https://cors-anywhere.herokuapp.com/https://intern-port-server.herokuapp.com/get-user-details", {"uid": uid, "type": "Employee"}, (data, status) => {
             $("#main-card").after("<div class=\"post-card\">\
                                         <div class=\"container\"></div> \
@@ -71,7 +82,7 @@ function postclicked(id_called) {
                                         </div> \
                                     </div>")
         })
-        
+    }
     })
 }
 
@@ -80,16 +91,20 @@ function group_clicked(id_called) {
     for (i = elements.length; i--;) {         
       elements[i].parentNode.removeChild(elements[i]);             
     }
-    if (!($("#main-card").length)) {
-        $("#side-bar").after("<div id=\"main-card\">\
-                                <br/> \
+    if ($("#main-card").children().length == 0) { 
+        $("#joke").remove()
+        $("#greeting").remove()
+        $("#main-card").css("visibility", "visible")
+        $("#main-card").append("<br/> \
                                 <h2 class=\"group-name\"></h2> \
+                                <a href = \"javascript:void(0)\"> \
+                                    <button type=\"button\" id=\"add-members\" onclick=\"add_members()\"><span>&#43;</span>  Add new members</button> \
+                                </a> \
                                 <hr id=\"line\"> \
-                                <h2 id =\"label-for-post\">Let other interns know what's on your mind!</h3> \
+                                <h2 id =\"label-for-post\">Let other interns know what's on your mind!</h2> \
                                 <input type=\"text\" placeholder=\"Write a post..\" id=\"post-box\">   </input> \
                                 <br/> \
-                                <input type=\"button\" href=\"\" onclick=\"postclicked(this.id)\" id=\"submit-post\" value=\"POST!\"/> \
-                            </div>")
+                                <input type=\"button\" href=\"\" onclick=\"postclicked(this.id)\" id=\"submit-post\" value=\"POST!\"/> ")
     }
     console.log("Clicked: " + id_called)
     $("a").removeClass(" active")
