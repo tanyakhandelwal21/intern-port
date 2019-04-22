@@ -16,17 +16,16 @@ $(document).ready(() => {
             }
         }
 
-        $.get("https://sv443.net/jokeapi/category/Programming?blacklistFlags=nsfw&religious&political", (data, status) => {
-            if(data.type == "single")
-                $("#joke").replaceWith("<div id=\"joke\"><h1>"+data.joke+"</h1></div>")
-            else { 
+        $.get("https://official-joke-api.appspot.com/random_joke", (data, status) => {
+            // if(data.type == "single")
+            //     $("#joke").replaceWith("<div id=\"joke\"><h1>"+data.joke+"</h1></div>")
+            // else { 
                 $("#joke").replaceWith("<div id=\"joke\"><p>"+data.setup+"</p> \
-                                    <p>"+data.delivery+"</p></div>")
-            }
+                                    <p>"+data.punchline+"</p></div>")
+            // }
         }).always(() => {
-            console.log("Loaded")
             $("#loader").remove()
-        });
+        });;
 })
 
 
