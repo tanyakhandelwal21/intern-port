@@ -17,7 +17,7 @@ $(document).ready(() => {
         }
         $.get("https://official-joke-api.appspot.com/random_joke", (data, status) => {
             $("#joke").replaceWith("<div id=\"joke\"><p>"+data.setup+"</p> \
-                                    <p>"+data.punchline+"</p></div>")
+                                    <p>"+data.punchline+" 😂</p></div>")
         }).always(() => {
             $("#loader").remove()
         });;
