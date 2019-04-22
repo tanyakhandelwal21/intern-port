@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+        <link rel="stylesheet" href="styles.css">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="SignUpEmployee.js"></script>
+    <title>Company Login</title>
+<body>
+        <div id="header">
+                <ul>
+                        <li><h1>Intern Port</h1></li>
+                </ul>
+                <hr></hr>
+        </div>
+    <br/>
+        <h1 id="login-title">Employee Sign Up</h1>
+        <br/>
+        <form class="SignUp" id="signup">
+            <label for="position">Position</label>
+            <input type="text" name="position" placeholder="Position" id="posn">
+            <label for="uname">Email</label>
+            <br/>
+            <input type="text" name="uname"placeholder="Email" id="email" >
+            <br/>
+            <label for="password">Password</label>
+            <br/>
+            <input type="password" name="password"placeholder="Password" id="pass">
+            <br/>
+            <label for="password">Confirm Password</label>
+            <br/>
+            <input type="password" name="password"placeholder="Password" id="cpass">
+            <br/>
+            <button type="button" onclick="create_account()">CREATE ACCOUNT!</button>
+        </form>
+</body>
+</html>
