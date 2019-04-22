@@ -39,6 +39,42 @@ $(document).ready(() => {
     })
 })
 
+function like_pressed(elem) {
+    let id_pressed = elem.parentNode.id
+    let button_text = $(elem.parentNode.children[5]).text()
+
+    if (button_text == "Like") {
+        $(elem.parentNode.children[5]).text("Unlike")
+    } else {
+        $(elem.parentNode.children[5]).text("Like")
+    }
+
+    var current_like_text = $(elem.parentNode.children[6]).text()
+    current_like_text = current_like_text.substring(0, current_like_text.indexOf(" "))
+
+    if (button_text == "Like") {
+        elem.parentNode.children[5].textContent = "Unlike"
+    } else {
+        elem.parentNode.children[5].textContent = "Like"
+    }
+
+    let data = {
+        "post_id": id_pressed,
+        "op_type": button_text,
+        "updated_likes": current_like_text,
+        "name": document.getElementById("company-name").innerText,
+        "group_name": document.getElementsByClassName("group-name")[0].innerText.toLowerCase().replace(" ", "_")
+    }
+
+    current_like_text = current_like_text + " Likes"
+
+    $(elem.parentNode.children[6]).text(current_like_text)
+
+    $.post("https://cors-anywhere.herokuapp.com/https://intern-port-server.herokuapp.com/update-likes", data, (data, res) => {
+        console.log(data)
+    })
+}
+
 function postclicked(id_called) {
     if (document.getElementById("post-box").value == '') {
         return
@@ -78,37 +114,13 @@ function postclicked(id_called) {
                                             <h3 class=\"time\">" +  timestamp + "</h3> \
                                             <h2 class=\"position\">" +  data.position + "</h2> \
                                             <p class=\"post\">" + post_text + "</p> \
-                                            <button id=\"like-button\" type=\"button\" onclick=\"like_pressed(this)\"> Like </button> \
+                                            <button id=\"like-button\" type=\"button\" onclick=\"like_pressed(this)\">Like</button> \
                                             <p class = \"num-likes\"> 3 Likes </p> \
                                             <br/> \
                                         </div> \
                                     </div>")
         })
     }
-    })
-}
-
-function like_pressed(elem) {
-    elem.parentNode.children[5].disabled = true;
-    let id_pressed = elem.parentNode.id
-
-    var current_like_text = $(elem.parentNode.children[6]).text()
-    current_like_text = current_like_text.substring(0, current_like_text.indexOf(" "))
-    current_like_text = parseInt(current_like_text) + 1
-
-    let data = {
-        "post_id": id_pressed,
-        "updated_likes": current_like_text,
-        "name": document.getElementById("company-name").innerText,
-        "group_name": document.getElementsByClassName("group-name")[0].innerText.toLowerCase().replace(" ", "_")
-    }
-
-    current_like_text = current_like_text + " Likes"
-
-    $(elem.parentNode.children[6]).text(current_like_text)
-
-    $.post("https://cors-anywhere.herokuapp.com/https://intern-port-server.herokuapp.com/update-likes", data, (data, res) => {
-        console.log(data)
     })
 }
 
@@ -152,7 +164,7 @@ function group_clicked(id_called) {
                                                 <h3 class=\"time\">" +  data[id].posts[key].timestamp + "</h3> \
                                                 <h2 class=\"position\">" + data[id].posts[key].position + "</h2> \
                                                 <p class=\"post\">" + data[id].posts[key].post_text + "</p> \
-                                                <button type=\"button\" id=\"like-button\"onclick=\"like_pressed(this)\"> Like </button> \
+                                                <button type=\"button\" id=\"like-button\" onclick=\"like_pressed(this)\">Like</button> \
                                                 <p class = \"num-likes\">" + data[id].posts[key].likes + " Likes </p> \
                                                 <br/> \
                                             </div> \
