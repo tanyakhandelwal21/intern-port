@@ -6,8 +6,6 @@ $(document).ready(() => {
     $.get("https://cors-anywhere.herokuapp.com/https://intern-port-server.herokuapp.com/populate-groups", data, (data, status) => {
         console.log(data)
         $("#company-name").replaceWith("<li id=\"company-name\">" + data.company_name + "</li>")
-        $("#main-card").replaceWith("<div id=\"main-card\">\
-        <p>Hello there!</p></div>")
         
 
         if (data.group_data != {}) {   
@@ -136,8 +134,8 @@ function group_clicked(id_called) {
     for (i = elements.length; i--;) {         
       elements[i].parentNode.removeChild(elements[i]);             
     }
-    if (!($("#main-card").length)) {
-        $("#main-card").replaceWith("<div id=\"main-card\">\
+    
+    $("#main-card").replaceWith("<div id=\"main-card\">\
                                 <br/> \
                                 <h2 class=\"group-name\"></h2> \
                                 <a href = \"javascript:void(0)\"> \
@@ -149,7 +147,8 @@ function group_clicked(id_called) {
                                 <br/> \
                                 <input type=\"button\" href=\"\" onclick=\"postclicked(this.id)\" id=\"submit-post\" value=\"POST!\"/> \
                             </div>")
-    }
+    $("#joke").replaceWith("<div id=\"joke\"></div>")
+    
     console.log("Clicked: " + id_called)
     $("a").removeClass(" active")
     document.getElementById(id_called).classList += " active"
