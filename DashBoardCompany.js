@@ -134,7 +134,7 @@ function like_pressed(elem) {
     if (button_text == "Like") {
         current_like_text = parseInt(current_like_text) + 1
     } else {
-        current_like_text = parseInt(current_like_text) + 1
+        current_like_text = parseInt(current_like_text) - 1
     }
 
     let data = {

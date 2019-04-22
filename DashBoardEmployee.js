@@ -49,9 +49,9 @@ function like_pressed(elem) {
     current_like_text = current_like_text.substring(0, current_like_text.indexOf(" "))
 
     if (button_text == "Like") {
-        elem.parentNode.children[5].textContent = "Unlike"
+        current_like_text = parseInt(current_like_text) + 1
     } else {
-        elem.parentNode.children[5].textContent = "Like"
+        current_like_text = parseInt(current_like_text) - 1
     }
 
     let data = {
