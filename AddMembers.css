@@ -33,7 +33,7 @@ input[type="text"] {
     box-align: center;
     margin: 0 auto;
     display: inline-block;
-    margin-left: 30%;
+    margin-left: 32%;
     padding: 10px 30px;
     color: black !important;
 }
@@ -50,6 +50,11 @@ input[type="text"] {
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 5%;
+  margin: 0 auto;
+}
+
+#delete, #submit {
+    display: block;
 }
 
 #add_member:hover, #delete:hover, #submit:hover {
@@ -63,9 +68,4 @@ input[type="text"] {
     margin: 0 auto;
     display: block;
     border: none;
-}
-
-#delete {
-    margin-left: 39%;
-    display: inline-block;    
 }

@@ -71,11 +71,18 @@ ul {
   }
 
   #post-box {
+    width: 60%;
     margin-left: 25%;
     margin-right: 10%;
-    width: 65%;
     margin-top: 0.5%;
     height: 50px;
+    text-indent: 1.5%;
+    font-size: 15px;
+  }
+
+  #post-box::placeholder {
+    margin-left: 0% !important;
+    text-indent: 0% !important;
   }
 
   #label-for-post {
