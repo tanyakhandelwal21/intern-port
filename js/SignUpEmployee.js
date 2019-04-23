@@ -1,3 +1,12 @@
+$(document).ready(() => {
+    $("input").keypress((e) => {
+        console.log("inside")
+        if (e.which == 13) {
+            $("button").click()
+        }
+    })
+})
+
 function create_account() {
     console.log("Inside function!")
     let password = document.getElementById("pass").value;
