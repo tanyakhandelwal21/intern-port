@@ -129,10 +129,10 @@ function like_pressed(elem) {
 
     if (button_text == "Like") {
         console.log("Inside first")
-        elem.parentNode.children[5].textContent = "Unlike"
+        $(elem.parentNode.children[5]).text("Unlike")
     } else {
         console.log("Inside second")
-        elem.parentNode.children[5].textContent = "Like"
+        $(elem.parentNode.children[5]).text("Like")
     }
 
     var current_like_text = $(elem.parentNode.children[6]).text()
@@ -152,11 +152,14 @@ function like_pressed(elem) {
         "group_name": document.getElementsByClassName("group-name")[0].innerText.toLowerCase().replace(" ", "_")
     }
 
-    current_like_text = current_like_text + " Likes"
+    if(current_like_text == 1)
+        current_like_text = current_like_text + " Like"
+    else
+        current_like_text = current_like_text + " Likes"
 
     $(elem.parentNode.children[6]).text(current_like_text)
 
-    $("#like-button").replaceWith("<button id=\"unlike-button\" type=\"button\" onclick=\"unlike_pressed(this)\"> Unlike </button>")
+    // $("#like-button").replaceWith("<button id=\"unlike-button\" type=\"button\" onclick=\"unlike_pressed(this)\"> Unlike </button>")
     $.post("https://cors-anywhere.herokuapp.com/https://intern-port-server.herokuapp.com/update-likes", data, (data, res) => {
         console.log(data)
     })
