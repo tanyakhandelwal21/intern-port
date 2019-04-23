@@ -4,7 +4,7 @@
 
 body {
         margin: 0;  
-        background: url('bg.png');  
+        background: url('../assets/bg.png');  
 }
 
 li h1 {

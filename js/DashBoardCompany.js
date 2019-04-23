@@ -16,18 +16,13 @@ $(document).ready(() => {
             }
         }
 
-        $.get("https://sv443.net/jokeapi/category/Programming?blacklistFlags=nsfw&religious&political", (data, status) => {
-            if(data.type == "single")
-                $("#joke").replaceWith("<div id=\"joke\"><h1>"+data.joke+"</h1></div>")
-            else { 
-                $("#joke").replaceWith("<div id=\"joke\"><p>"+data.setup+"</p> \
-                                    <p>"+data.delivery+"</p></div>")
-            }
+        $.get("https://official-joke-api.appspot.com/random_joke", (data, status) => {
+            $("#joke").replaceWith("<div id=\"joke\"><p>"+data.setup+"</p> \
+                                    <p>"+data.punchline+" 😂</p></div>")
         }).always(() => {
-            console.log("Loaded")
             $("#loader").remove()
-        });
-})
+        });;
+    })
 
 
     $("#add-group").click(() => {
@@ -102,8 +97,8 @@ function postclicked(id_called) {
                                                 <h3 class=\"time\">" +  timestamp + "</h3> \
                                                 <h2 class=\"position\">" +  data_inner.position + "</h2> \
                                                 <p class=\"post\">" + post_text + "</p> \
-                                                <button id=\"like-button\" type=\"button\"> Like </button> \
-                                                <p class = \"num-likes\"> 0 Likes </p> \
+                                                <button id=\"like-button\" type=\"button\" onclick=\"like_pressed(this)\">Like</button> \
+                                                <p class = \"num-likes\">0 Likes</p> \
                                                 <br/> \
                                             </div> \
                                         </div>")
@@ -121,13 +116,30 @@ function add_members() {
 
 function like_pressed(elem) {
     let id_pressed = elem.parentNode.id
+    let button_text = $(elem.parentNode.children[5]).text()
+
+    console.log(button_text)
+
+    if (button_text == "Like") {
+        console.log("Inside first")
+        elem.parentNode.children[5].textContent = "Unlike"
+    } else {
+        console.log("Inside second")
+        elem.parentNode.children[5].textContent = "Like"
+    }
 
     var current_like_text = $(elem.parentNode.children[6]).text()
     current_like_text = current_like_text.substring(0, current_like_text.indexOf(" "))
-    current_like_text = parseInt(current_like_text) + 1
+
+    if (button_text == "Like") {
+        current_like_text = parseInt(current_like_text) + 1
+    } else {
+        current_like_text = parseInt(current_like_text) - 1
+    }
 
     let data = {
         "post_id": id_pressed,
+        "op_type": button_text,
         "updated_likes": current_like_text,
         "name": document.getElementById("company-name").innerText,
         "group_name": document.getElementsByClassName("group-name")[0].innerText.toLowerCase().replace(" ", "_")
@@ -209,7 +221,7 @@ function group_clicked(id_called) {
                                                 <h3 class=\"time\">" +  data[id].posts[key].timestamp + "</h3> \
                                                 <h2 class=\"position\">" +  data[id].posts[key].position + "</h2> \
                                                 <p class=\"post\">" + data[id].posts[key].post_text + "</p> \
-                                                <button id=\"like-button\" type=\"button\" onclick=\"like_pressed(this)\"> Like </button> \
+                                                <button id=\"like-button\" type=\"button\" onclick=\"like_pressed(this)\">Like</button> \
                                                 <p class = \"num-likes\">" + data[id].posts[key].likes + " Likes </p> \
                                                 <br/> \
                                             </div> \
