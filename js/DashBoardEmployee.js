@@ -62,7 +62,10 @@ function like_pressed(elem) {
         "group_name": document.getElementsByClassName("group-name")[0].innerText.toLowerCase().replace(" ", "_")
     }
 
-    current_like_text = current_like_text + " Likes"
+    if(current_like_text == 1)
+        current_like_text = current_like_text + " Like"
+    else
+        current_like_text = current_like_text + " Likes"
 
     $(elem.parentNode.children[6]).text(current_like_text)
 
@@ -104,7 +107,7 @@ function postclicked(id_called) {
         console.log(data)
         if(data.Status == "Success") { 
         $.get("https://cors-anywhere.herokuapp.com/https://intern-port-server.herokuapp.com/get-user-details", {"uid": uid, "type": "Employee"}, (data, status) => {
-            $("#main-card").after("<div class=\"post-card\" id=" +  key + ">\
+            $("#main-card").after("<div class=\"post-card\" id=" +  data.post_id + ">\
                                         <div class=\"container\"></div> \
                                             <h1 class=\"name\">" +  data.username + "</h1> \
                                             <h3 class=\"time\">" +  timestamp + "</h3> \
