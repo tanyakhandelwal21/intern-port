@@ -137,6 +137,31 @@ function like_pressed(elem) {
 
     $(elem.parentNode.children[6]).text(current_like_text)
 
+    $("#like-button").replaceWith("<button id=\"unlike-button\" type=\"button\" onclick=\"unlike_pressed(this)\"> Unlike </button>")
+    $.post("https://cors-anywhere.herokuapp.com/https://intern-port-server.herokuapp.com/update-likes", data, (data, res) => {
+        console.log(data)
+    })
+}
+
+function unlike_pressed(elem) {
+    let id_pressed = elem.parentNode.id
+
+    var current_like_text = $(elem.parentNode.children[6]).text()
+    current_like_text = current_like_text.substring(0, current_like_text.indexOf(" "))
+    current_like_text = parseInt(current_like_text) - 1
+
+    let data = {
+        "post_id": id_pressed,
+        "updated_likes": current_like_text,
+        "name": document.getElementById("company-name").innerText,
+        "group_name": document.getElementsByClassName("group-name")[0].innerText.toLowerCase().replace(" ", "_")
+    }
+
+    current_like_text = current_like_text + " Likes"
+
+    $(elem.parentNode.children[6]).text(current_like_text)
+
+    $("#like-button").replaceWith("<button id=\"like-button\" type=\"button\" onclick=\"like_pressed(this)\"> Like </button>")
     $.post("https://cors-anywhere.herokuapp.com/https://intern-port-server.herokuapp.com/update-likes", data, (data, res) => {
         console.log(data)
     })
@@ -163,7 +188,7 @@ function group_clicked(id_called) {
                                 <br/> \
                                 <input type=\"button\" href=\"\" onclick=\"postclicked(this.id)\" id=\"submit-post\" value=\"POST!\"/> ")
     }
-    
+
     console.log("Clicked: " + id_called)
     $("a").removeClass(" active")
     document.getElementById(id_called).classList += " active"
