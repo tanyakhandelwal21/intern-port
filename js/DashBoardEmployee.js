@@ -62,7 +62,10 @@ function like_pressed(elem) {
         "group_name": document.getElementsByClassName("group-name")[0].innerText.toLowerCase().replace(" ", "_")
     }
 
-    current_like_text = current_like_text + " Likes"
+    if(current_like_text == 1)
+        current_like_text = current_like_text + " Like"
+    else
+        current_like_text = current_like_text + " Likes"
 
     $(elem.parentNode.children[6]).text(current_like_text)
 
