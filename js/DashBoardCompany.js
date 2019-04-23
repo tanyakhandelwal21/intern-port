@@ -98,7 +98,7 @@ function postclicked(id_called) {
                                                 <h2 class=\"position\">" +  data_inner.position + "</h2> \
                                                 <p class=\"post\">" + post_text + "</p> \
                                                 <button id=\"like-button\" type=\"button\" onclick=\"like_pressed(this)\">Like</button> \
-                                                <p class = \"num-likes\"> 0 Likes </p> \
+                                                <p class = \"num-likes\">0 Likes</p> \
                                                 <br/> \
                                             </div> \
                                         </div>")
