@@ -51,7 +51,7 @@ ul {
   #line
   {
     margin-left: 21%;
-    margin-right: 15%;
+    margin-right: 2.5%;
   }
 
   #main-card h2 {
@@ -118,6 +118,7 @@ ul {
     right: 0 !important;
     margin-right: 1% !important;
     border-bottom: 10px;
+    margin-top: 0% !important;
   }
 
   #submit-post:hover, #add-members:hover, #like-button:hover {
@@ -171,10 +172,6 @@ ul {
     display: inline-block;
   }
 
-  .line {
-    margin-left: 5% !important;
-    margin-right: 5% !important;
-  }
 
   .position {
     font-size: 15px;
@@ -253,4 +250,12 @@ ul {
     margin-left: 52%; 
     padding-bottom: 10%; 
     background-color: #fff2f2 !important;
+  }
+
+  #refresh {
+    margin-top: 85%;
+    width: 15%;
+    height: 15%;
+    margin: 0 auto;
+    display: block;
   }
