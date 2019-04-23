@@ -131,9 +131,6 @@ function group_clicked(id_called) {
         $("#main-card").css("visibility", "visible")
         $("#main-card").append("<br/> \
                                 <h2 class=\"group-name\"></h2> \
-                                <a href = \"javascript:void(0)\"> \
-                                    <button type=\"button\" id=\"add-members\" onclick=\"add_members()\"><span>&#43;</span>  Add new members</button> \
-                                </a> \
                                 <hr id=\"line\"> \
                                 <h2 id =\"label-for-post\">Let other interns know what's on your mind!</h2> \
                                 <input type=\"text\" placeholder=\"Write a post..\" id=\"post-box\">   </input> \
