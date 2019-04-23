@@ -50,8 +50,9 @@ ul {
 
   #line
   {
+    width: 50%;
     margin-left: 21%;
-    margin-right: 1%;
+    margin-right: 15%;
   }
 
   #main-card h2 {
@@ -114,7 +115,10 @@ ul {
 
   #add-members {
     display: inline-block !important;
-    margin-left: 50% !important;
+    position: absolute !important; 
+    right: 0 !important;
+    margin-right: 1% !important;
+    border-bottom: 10px;
   }
 
   #submit-post:hover, #add-members:hover, #like-button:hover {

@@ -29,7 +29,7 @@ $(document).ready(() => {
                 alert(data.Message)
             } else if (data.Status == "Success") {
                 console.log("logged out")
-                window.location.href = "index.html"
+                window.location.href = "../index.html"
             }
         })
     })
