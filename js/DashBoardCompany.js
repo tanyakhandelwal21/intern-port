@@ -55,6 +55,13 @@ $(document).ready(() => {
             }
         })
     })
+
+    $("#main-card").on("keypress", "#post-box", (e) => {
+        if (e.keyCode == 13) {
+            console.log("POST")
+            $("#submit-post").click()
+        }
+    })
 })
 
 function postclicked(id_called) {
