@@ -210,23 +210,20 @@ function group_clicked(id_called) {
     document.getElementsByClassName("group-name")[0].innerText = id_called
 
 
-    $.get("https://server.intern-port.com/get-posts", {"name": document.getElementById("company-name").innerText}, (data, status) => {    
+    $.get("https://server.intern-port.com/get-posts", {"name": document.getElementById("company-name").innerText, "group_name": id_called.toLowerCase().replace(" ", "_")}, (data, status) => {    
         // var data_returned = JSON.parse(data)
         console.log(data)
-        let id = id_called.toLowerCase().replace(" ", "_")
-        console.log(data[id])
 
-        if (data[id].posts != null) {
-            for (let key in data[id].posts) {
+        if (data.posts != null) {
+            for (let key in data.posts) {
                 $("#main-card").after("<div class=\"post-card\" id=" +  key + ">\
                                             <div class=\"container\"></div> \
-                                                <h1 class=\"name\">" +  data[id].posts[key].username + "</h1> \
-                                                <h3 class=\"time\">" +  data[id].posts[key].timestamp + "</h3> \
-                                                <h2 class=\"position\">" +  data[id].posts[key].position + "</h2> \
-                                                <p class=\"post\">" + data[id].posts[key].post_text + "</p> \
-                                                <button id=\"delete-button\" type=\"button\" onclick=\"delete_pressed(this)\">Delete</button> \
-                                                <button id=\"like-button\" type=\"button\" onclick=\"like_pressed(this)\">Like</button> \
-                                                <p class = \"num-likes\">" + data[id].posts[key].likes + " Likes </p> \
+                                                <h1 class=\"name\">" + data.posts[key].username + "</h1> \
+                                                <h3 class=\"time\">" +  data.posts[key].timestamp + "</h3> \
+                                                <h2 class=\"position\">" + data.posts[key].position + "</h2> \
+                                                <p class=\"post\">" + data.posts[key].post_text + "</p> \
+                                                <button type=\"button\" id=\"like-button\" onclick=\"like_pressed(this)\">Like</button> \
+                                                <p class = \"num-likes\">" + data.posts[key].likes + " Likes </p> \
                                                 <br/> \
                                             </div> \
                                         </div>")
