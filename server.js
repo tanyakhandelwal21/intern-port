@@ -158,6 +158,19 @@ app.post("/update-likes", (req, res) => {
     })
 })
 
+app.post("/delete-post", (req, res) => {
+    root_db.child("Companies").orderByKey().once("value", (snapshot) => {
+        let data = snapshot.val()
+
+        for (let key in data) {
+            if (data[key].name == req.body.name) {
+                root_db.child("Companies").child(key).child("groups").child(req.body.group_name).child("posts").child(req.body.post_id).remove()
+                res.sendStatus(200)
+            }
+        }
+    })
+}) 
+
 app.post("/add-group", (req, res) => {
     let group_details = req.body;
     console.log("Add group")
