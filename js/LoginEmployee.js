@@ -21,7 +21,7 @@ function sign_in() {
         "auth_type": "Employee"
     }
 
-    $.post("https://cors-anywhere.herokuapp.com/https://server.intern-port.com/authentication", data_json, (data, status) => {
+    $.post("https://cors-anywhere.herokuapp.com/https://intern-port-server.herokuapp.com/authentication", data_json, (data, status) => {
 
         if (data.Status == "Error") {
             alert(data.Message)

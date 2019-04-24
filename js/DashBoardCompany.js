@@ -6,7 +6,7 @@ $(document).ready(() => {
 
     let username = localStorage.getItem("email").substring(0, localStorage.getItem("email").indexOf("@"));
     $("#greeting_h1").append("Hi " + username + ", here is a joke for you!")
-    $.get("https://cors-anywhere.herokuapp.com/https://server.intern-port.com/populate-groups", data, (data, status) => {
+    $.get("https://cors-anywhere.herokuapp.com/https://intern-port-server.herokuapp.com/populate-groups", data, (data, status) => {
         console.log(data)
         $("#company-name").replaceWith("<li id=\"company-name\">" + data.company_name + "</li>")
     
@@ -40,13 +40,13 @@ $(document).ready(() => {
         data_json.uid = c_uid;
 
 
-        $.post("https://cors-anywhere.herokuapp.com/https://server.intern-port.com/add-group", data_json, (data, status) => {
+        $.post("https://cors-anywhere.herokuapp.com/https://intern-port-server.herokuapp.com/add-group", data_json, (data, status) => {
             console.log(data)
         })
     })
 
     $("#logout").click(() => {
-        $.get("https://cors-anywhere.herokuapp.com/https://server.intern-port.com/logout", null, (data, status) => {
+        $.get("https://cors-anywhere.herokuapp.com/https://intern-port-server.herokuapp.com/logout", null, (data, status) => {
             if (data.Status == "Error") {
                 alert(data.Message)
             } else if (data.Status == "Success") {
@@ -93,11 +93,11 @@ function postclicked(id_called) {
 
     console.log(json_to_post)
 
-    $.post("https://cors-anywhere.herokuapp.com/https://server.intern-port.com/make-post", json_to_post, (data, status) => {
+    $.post("https://cors-anywhere.herokuapp.com/https://intern-port-server.herokuapp.com/make-post", json_to_post, (data, status) => {
         console.log(data)
 
         if (data.Status == "Success") {
-            $.get("https://cors-anywhere.herokuapp.com/https://server.intern-port.com/get-user-details", {"uid": uid, "type": "Company"}, (data_inner, status) => {
+            $.get("https://cors-anywhere.herokuapp.com/https://intern-port-server.herokuapp.com/get-user-details", {"uid": uid, "type": "Company"}, (data_inner, status) => {
                 $("#main-card").after("<div class=\"post-card\" id=" +  data.post_id + ">\
                                             <div class=\"container\"></div> \
                                                 <h1 class=\"name\">" +  data_inner.username + "</h1> \
@@ -160,7 +160,7 @@ function like_pressed(elem) {
     $(elem.parentNode.children[6]).text(current_like_text)
 
     // $("#like-button").replaceWith("<button id=\"unlike-button\" type=\"button\" onclick=\"unlike_pressed(this)\"> Unlike </button>")
-    $.post("https://cors-anywhere.herokuapp.com/https://server.intern-port.com/update-likes", data, (data, res) => {
+    $.post("https://cors-anywhere.herokuapp.com/https://intern-port-server.herokuapp.com/update-likes", data, (data, res) => {
         console.log(data)
     })
 }
@@ -184,7 +184,7 @@ function unlike_pressed(elem) {
     $(elem.parentNode.children[6]).text(current_like_text)
 
     $("#like-button").replaceWith("<button id=\"like-button\" type=\"button\" onclick=\"like_pressed(this)\"> Like </button>")
-    $.post("https://cors-anywhere.herokuapp.com/https://server.intern-port.com/update-likes", data, (data, res) => {
+    $.post("https://cors-anywhere.herokuapp.com/https://intern-port-server.herokuapp.com/update-likes", data, (data, res) => {
         console.log(data)
     })
 }
@@ -217,7 +217,7 @@ function group_clicked(id_called) {
     document.getElementsByClassName("group-name")[0].innerText = id_called
 
 
-    $.get("https://cors-anywhere.herokuapp.com/https://server.intern-port.com/get-posts", {"name": document.getElementById("company-name").innerText}, (data, status) => {    
+    $.get("https://cors-anywhere.herokuapp.com/https://intern-port-server.herokuapp.com/get-posts", {"name": document.getElementById("company-name").innerText}, (data, status) => {    
         // var data_returned = JSON.parse(data)
         console.log(data)
         let id = id_called.toLowerCase().replace(" ", "_")

@@ -14,7 +14,7 @@ $(document).ready(() => {
             "company": company_name
         }
 
-        $.post("https://cors-anywhere.herokuapp.com/https://server.intern-port.com/add-members", data_json, (data, status) => {
+        $.post("https://cors-anywhere.herokuapp.com/https://intern-port-server.herokuapp.com/add-members", data_json, (data, status) => {
             console.log(data)
             window.location.href = "CompanyDashboard.html"
         })
