@@ -92,7 +92,7 @@ ul {
     margin-left: 25% !important; 
   }
 
-  #submit-post, #add-members, #like-button {
+  #submit-post, #add-members, #like-button, #delete-button {
     margin-left: 80%;
     margin-top: 0.5%;
     padding: 10px 30px;
@@ -106,9 +106,14 @@ ul {
     border: none;
   }
 
+  #delete-button {
+    margin-left: 67%;
+    display: inline-block;
+  }
+
   #like-button {
-    margin-left: 75%;
-    margin-right: 2%;
+    margin-left: 0%;
+    margin-right: 1%;
     display: inline-block;
   }
 
@@ -121,7 +126,7 @@ ul {
     margin-top: 0% !important;
   }
 
-  #submit-post:hover, #add-members:hover, #like-button:hover {
+  #submit-post:hover, #add-members:hover, #like-button:hover, #delete-button:hover {
     background-color: #7a1119;
   }
 

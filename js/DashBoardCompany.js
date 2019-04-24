@@ -104,6 +104,7 @@ function postclicked(id_called) {
                                                 <h3 class=\"time\">" +  timestamp + "</h3> \
                                                 <h2 class=\"position\">" +  data_inner.position + "</h2> \
                                                 <p class=\"post\">" + post_text + "</p> \
+                                                <button id=\"delete-button\" type=\"button\" onclick=\"delete_pressed(this)\">Delete</button> \
                                                 <button id=\"like-button\" type=\"button\" onclick=\"like_pressed(this)\">Like</button> \
                                                 <p class = \"num-likes\">0 Likes</p> \
                                                 <br/> \
@@ -121,21 +122,37 @@ function add_members() {
     window.location.href = "AddMembers.html"
 }
 
+function delete_pressed(elem) {
+    let id_pressed = elem.parentNode.id
+
+    let data = {
+        "post_id": id_pressed,
+        "name": document.getElementById("company-name").innerText,
+        "group_name": document.getElementsByClassName("group-name")[0].innerText.toLowerCase().replace(" ", "_")
+    }
+
+    $.post("https://server.intern-port.com/delete-post", data, (data, res) => {
+        console.log(data)
+    })
+
+    $(elem.parentNode).remove()
+}
+
 function like_pressed(elem) {
     let id_pressed = elem.parentNode.id
-    let button_text = $(elem.parentNode.children[5]).text()
+    let button_text = $(elem.parentNode.children[6]).text()
 
     console.log(button_text)
 
     if (button_text == "Like") {
         console.log("Inside first")
-        $(elem.parentNode.children[5]).text("Unlike")
+        $(elem.parentNode.children[6]).text("Unlike")
     } else {
         console.log("Inside second")
-        $(elem.parentNode.children[5]).text("Like")
+        $(elem.parentNode.children[6]).text("Like")
     }
 
-    var current_like_text = $(elem.parentNode.children[6]).text()
+    var current_like_text = $(elem.parentNode.children[7]).text()
     current_like_text = current_like_text.substring(0, current_like_text.indexOf(" "))
 
     if (button_text == "Like") {
@@ -157,33 +174,9 @@ function like_pressed(elem) {
     else
         current_like_text = current_like_text + " Likes"
 
-    $(elem.parentNode.children[6]).text(current_like_text)
+    $(elem.parentNode.children[7]).text(current_like_text)
 
     // $("#like-button").replaceWith("<button id=\"unlike-button\" type=\"button\" onclick=\"unlike_pressed(this)\"> Unlike </button>")
-    $.post("https://server.intern-port.com/update-likes", data, (data, res) => {
-        console.log(data)
-    })
-}
-
-function unlike_pressed(elem) {
-    let id_pressed = elem.parentNode.id
-
-    var current_like_text = $(elem.parentNode.children[6]).text()
-    current_like_text = current_like_text.substring(0, current_like_text.indexOf(" "))
-    current_like_text = parseInt(current_like_text) - 1
-
-    let data = {
-        "post_id": id_pressed,
-        "updated_likes": current_like_text,
-        "name": document.getElementById("company-name").innerText,
-        "group_name": document.getElementsByClassName("group-name")[0].innerText.toLowerCase().replace(" ", "_")
-    }
-
-    current_like_text = current_like_text + " Likes"
-
-    $(elem.parentNode.children[6]).text(current_like_text)
-
-    $("#like-button").replaceWith("<button id=\"like-button\" type=\"button\" onclick=\"like_pressed(this)\"> Like </button>")
     $.post("https://server.intern-port.com/update-likes", data, (data, res) => {
         console.log(data)
     })
@@ -231,6 +224,7 @@ function group_clicked(id_called) {
                                                 <h3 class=\"time\">" +  data[id].posts[key].timestamp + "</h3> \
                                                 <h2 class=\"position\">" +  data[id].posts[key].position + "</h2> \
                                                 <p class=\"post\">" + data[id].posts[key].post_text + "</p> \
+                                                <button id=\"delete-button\" type=\"button\" onclick=\"delete_pressed(this)\">Delete</button> \
                                                 <button id=\"like-button\" type=\"button\" onclick=\"like_pressed(this)\">Like</button> \
                                                 <p class = \"num-likes\">" + data[id].posts[key].likes + " Likes </p> \
                                                 <br/> \
