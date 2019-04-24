@@ -2,6 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const firebase_import = require('firebase/app')
 const app = express().use(bodyParser.json())
+var cors = require('cors');
 const firebase = firebase_import.initializeApp({
     apiKey: process.env.API_KEY,
     authDomain: "intern-port.firebaseapp.com",
@@ -18,6 +19,8 @@ const root_db = firebase.database().ref()
 app.listen(process.env.PORT || 8100, () => console.log("Server is listening"))
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use(cors());
+
 app.get("/get-posts", (req, res) => {
     root_db.child("Companies").orderByValue().once("value", (snapshot) => {
         let data = snapshot.val()
@@ -29,6 +32,10 @@ app.get("/get-posts", (req, res) => {
         }
         // res.send(data)
     })
+})
+
+app.get("/test", (req, res) => {
+	res.send("Received connection")
 })
 
 app.post("/add-members", (req, res) => {
