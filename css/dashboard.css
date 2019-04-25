@@ -131,7 +131,7 @@ ul {
     margin-top: 0% !important;
   }
 
-  #submit-post:hover, #add-members:hover, #like-button:hover, #delete-button:hover {
+  #submit-post:hover, #add-members:hover, #like-button:hover, #delete-button:hover, .delete-button:hover, .like-button-first:hover, .like-button:hover {
     background-color: #7a1119;
   }
 
