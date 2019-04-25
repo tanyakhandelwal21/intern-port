@@ -27,7 +27,7 @@ app.get("/get-posts", (req, res) => {
         // console.log(data)
         for (var key in data) {
             if (data[key].name == req.query.name) {
-                res.send(data[key].groups)
+                res.send(data[key].groups[req.query.group_name])
             }
         }
         // res.send(data)
@@ -251,7 +251,6 @@ app.get("/get-user-details", (req, res) => {
     root_db.child("Users").child(req.query.type).orderByKey().once("value", (snapshot) => {
         let data = snapshot.val()
         console.log("User details")
-        console.log(data) 
 
         for (let key in data)  {
             if (key == req.query.uid && req.query.type == "Employee") {
