@@ -104,8 +104,8 @@ function postclicked(id_called) {
                                                 <h3 class=\"time\">" +  timestamp + "</h3> \
                                                 <h2 class=\"position\">" +  data_inner.position + "</h2> \
                                                 <p class=\"post\">" + post_text + "</p> \
-                                                <button id=\"delete-button\" type=\"button\" onclick=\"delete_pressed(this)\">Delete</button> \
-                                                <button id=\"like-button\" type=\"button\" onclick=\"like_pressed(this)\">Like</button> \
+                                                <button class=\"delete-button\" type=\"button\" onclick=\"delete_pressed(this)\">Delete</button> \
+                                                <button class=\"like-button\" type=\"button\" onclick=\"like_pressed(this)\">Like</button> \
                                                 <p class = \"num-likes\">0 Likes</p> \
                                                 <br/> \
                                             </div> \
@@ -222,8 +222,8 @@ function group_clicked(id_called) {
                                                 <h3 class=\"time\">" +  data.posts[key].timestamp + "</h3> \
                                                 <h2 class=\"position\">" + data.posts[key].position + "</h2> \
                                                 <p class=\"post\">" + data.posts[key].post_text + "</p> \
-                                                <button type=\"button\" id=\"delete-button\" onclick=\"delete_pressed(this)\">Delete</button> \
-                                                <button type=\"button\" id=\"like-button\" onclick=\"like_pressed(this)\">Like</button> \
+                                                <button type=\"button\" class=\"delete-button\" onclick=\"delete_pressed(this)\">Delete</button> \
+                                                <button type=\"button\" class=\"like-button\" onclick=\"like_pressed(this)\">Like</button> \
                                                 <p class = \"num-likes\">" + data.posts[key].likes + " Likes </p> \
                                                 <br/> \
                                             </div> \

@@ -92,7 +92,7 @@ ul {
     margin-left: 25% !important; 
   }
 
-  #submit-post, #add-members, #like-button, .delete-button, .like-button, .like-button-first  {
+  #submit-post, #add-members, #like-button, .delete-button, .like-button, .like-button-first, #delete-button  {
     margin-left: 80%;
     margin-top: 0.5%;
     padding: 10px 30px;
