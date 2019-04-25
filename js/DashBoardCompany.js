@@ -222,6 +222,7 @@ function group_clicked(id_called) {
                                                 <h3 class=\"time\">" +  data.posts[key].timestamp + "</h3> \
                                                 <h2 class=\"position\">" + data.posts[key].position + "</h2> \
                                                 <p class=\"post\">" + data.posts[key].post_text + "</p> \
+                                                <button type=\"button\" id=\"delete-button\" onclick=\"delete_pressed(this)\">Delete</button> \
                                                 <button type=\"button\" id=\"like-button\" onclick=\"like_pressed(this)\">Like</button> \
                                                 <p class = \"num-likes\">" + data.posts[key].likes + " Likes </p> \
                                                 <br/> \
