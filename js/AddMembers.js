@@ -4,10 +4,15 @@ $(document).ready(() => {
     localStorage.setItem("members", JSON.stringify(name))
     let group_name = localStorage.getItem("group")
     $("#title").text("Add Members to " + group_name)
+    document.getElementById("emails").style.visibility = 'hidden';
 
     $("#submit").click(() => {
         let company_name = localStorage.getItem("company")
         console.log(localStorage.getItem("members"))
+        if (JSON.parse(localStorage.getItem("members")).length == 0) {
+            alert("Enter at least one email ID.")
+            return;
+        }
         let data_json = {
             "email": localStorage.getItem("members"),
             "group": group_name,
@@ -22,6 +27,12 @@ $(document).ready(() => {
 
     $("#delete").click(() => {
         let selected = document.getElementById("emails")
+        if (selected.options.length == 0) {
+            return;
+        }
+        if (selected.options.length == 1) {
+            document.getElementById("emails").style.visibility = 'hidden';
+        }
         let selected_email = selected.options[selected.selectedIndex].text
         let members = JSON.parse(localStorage.getItem("members"))
         members.splice(members.indexOf(selected_email), 1)
@@ -30,6 +41,7 @@ $(document).ready(() => {
     })
 
     $("#add_member").click(() => {
+        document.getElementById("emails").style.visibility = 'visible';
         let email_id = $("#email").val()
         let members = JSON.parse(localStorage.getItem("members"))
         $("#email").val("")
