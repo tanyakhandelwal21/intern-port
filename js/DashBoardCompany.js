@@ -6,6 +6,7 @@ $(document).ready(() => {
 
     let username = localStorage.getItem("email").substring(0, localStorage.getItem("email").indexOf("@"));
     $("#greeting_h1").append("Hi " + username + ", here is a joke for you!")
+    $("#logout").append("<a href=\"javascript:void(0)\">Logout " + username + "</a>")
     $.get("https://server.intern-port.com/populate-groups", data, (data, status) => {
         console.log(data)
         $("#company-name").replaceWith("<li id=\"company-name\">" + data.company_name + "</li>")

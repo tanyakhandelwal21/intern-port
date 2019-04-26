@@ -5,6 +5,7 @@ $(document).ready(() => {
     }
 
     let username = localStorage.getItem("email").substring(0, localStorage.getItem("email").indexOf("@"));
+    $("#logout").append("<a href=\"javascript:void(0)\">Logout " + username + "</a>")
     $("#greeting_h1").append("Hi " + username + ", here is a joke for you!")
     $.get("https://server.intern-port.com/populate-groups", data, (data, status) => {
         console.log(data)
@@ -81,6 +82,26 @@ function like_pressed(elem) {
     })
 }
 
+function delete_pressed(elem) {
+    console.log("Delete Pressed 1")
+    let id_pressed = elem.parentNode.id
+
+    let data = {
+        "post_id": id_pressed,
+        "name": document.getElementById("company-name").innerText,
+        "group_name": document.getElementsByClassName("group-name")[0].innerText.toLowerCase().replace(" ", "_")
+    }
+
+    console.log(data)
+
+    console.log("Delete Pressed 2")
+    $.post("https://server.intern-port.com/delete-post", data, (data, res) => {
+        console.log(data)
+
+        $(elem.parentNode).remove()
+    })
+}
+
 function postclicked(id_called) {
     if (document.getElementById("post-box").value == '') {
         return
@@ -110,42 +131,26 @@ function postclicked(id_called) {
 
     console.log(json_to_post)
 
-    $.post("https://server.intern-port.com/make-post", json_to_post, (data, status) => {
-        console.log(data)
+    $.post("https://server.intern-port.com/make-post", json_to_post, (data_outer, status) => {
+        console.log(data_outer)
         // console.log(username + ' '+data.posts[key].username)
-        if(data.Status == "Success") { 
+        if(data_outer.Status == "Success") { 
         $.get("https://server.intern-port.com/get-user-details", {"uid": uid, "type": "Employee"}, (data, status) => {
-            $("#main-card").after("<div class=\"post-card\" id=" +  data.post_id + ">\
-                                        <div class=\"container\"></div> \
-                                            <h1 class=\"name\">" +  data.username + "</h1> \
-                                            <h3 class=\"time\">" +  timestamp + "</h3> \
-                                            <h2 class=\"position\">" +  data.position + "</h2> \
-                                            <p class=\"post\">" + post_text + "</p> \
-                                            <button type=\"button\" class=\"delete-button\" onclick=\"delete_pressed(this)\">Delete</button> \
-                                            <button class=\"like-button\" type=\"button\" onclick=\"like_pressed(this)\">Like</button> \
-                                            <p class = \"num-likes\">0 Likes</p> \
-                                            <br/> \
-                                        </div> \
-                                    </div>")
+            $("#main-card").after("<div class=\"post-card\" id=" +  data_outer.post_id + ">\
+                                                <div class=\"container\"></div> \
+                                                    <h1 class=\"name\">" + data.username + "</h1> \
+                                                    <h3 class=\"time\">" +  timestamp + "</h3> \
+                                                    <h2 class=\"position\">" + data.position + "</h2> \
+                                                    <p class=\"post\">" + post_text + "</p> \
+                                                    <button type=\"button\" class=\"delete-button\" onclick=\"delete_pressed(this)\">Delete</button> \
+                                                    <button type=\"button\" class=\"like-button\" onclick=\"like_pressed(this)\">Like</button> \
+                                                    <p class = \"num-likes\">0 Likes</p> \
+                                                    <br/> \
+                                                </div> \
+                                            </div>")
         })
     }
     })
-}
-
-function delete_pressed(elem) {
-    let id_pressed = elem.parentNode.id
-
-    let data = {
-        "post_id": id_pressed,
-        "name": document.getElementById("company-name").innerText,
-        "group_name": document.getElementsByClassName("group-name")[0].innerText.toLowerCase().replace(" ", "_")
-    }
-
-    $.post("https://server.intern-port.com/delete-post", data, (data, res) => {
-        console.log(data)
-    })
-
-    $(elem.parentNode).remove()
 }
 
 function group_clicked(id_called) {
