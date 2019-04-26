@@ -166,11 +166,14 @@ app.post("/update-likes", (req, res) => {
 })
 
 app.post("/delete-post", (req, res) => {
+    console.log("Delete entered")
+    console.log(req.body)
     root_db.child("Companies").orderByKey().once("value", (snapshot) => {
         let data = snapshot.val()
 
         for (let key in data) {
             if (data[key].name == req.body.name) {
+                console.log("Post deleted")
                 root_db.child("Companies").child(key).child("groups").child(req.body.group_name).child("posts").child(req.body.post_id).remove()
                 res.sendStatus(200)
             }
@@ -223,11 +226,16 @@ app.post("/make-post", (req, res) => {
                             }
                         }
                     }
+
+                    var ref = root_db.child("Companies").child(key).child("groups").child(req.body.group).child("posts")
+
+                    var key_push = ref.push().key
+                    console.log("Key: " + key)
                     let data_to_send = {
                         "Status": "Success",
-                        "post_id": root_db.child("Companies").child(key).child("groups").child(req.body.group).child("posts").push().key
+                        "post_id": key
                     }
-                    root_db.child("Companies").child(key).child("groups").child(req.body.group).child("posts").push(data)
+                    ref.child(key).set(data)
                     res.send(data_to_send)
                 })
             }
