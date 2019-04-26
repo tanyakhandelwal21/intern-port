@@ -230,12 +230,12 @@ app.post("/make-post", (req, res) => {
                     var ref = root_db.child("Companies").child(key).child("groups").child(req.body.group).child("posts")
 
                     var key_push = ref.push().key
-                    console.log("Key: " + key)
+                    console.log("Key: " + key_push)
                     let data_to_send = {
                         "Status": "Success",
-                        "post_id": key
+                        "post_id": key_push
                     }
-                    ref.child(key).set(data)
+                    ref.child(key_push).set(data)
                     res.send(data_to_send)
                 })
             }
