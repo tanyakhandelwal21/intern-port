@@ -112,38 +112,21 @@ function postclicked(id_called) {
 
     $.post("https://server.intern-port.com/make-post", json_to_post, (data, status) => {
         console.log(data)
-        let username = localStorage.getItem("email").substring(0, localStorage.getItem("email").indexOf("@"));
-
-        console.log(username + ' '+data.posts[key].username)
+        // console.log(username + ' '+data.posts[key].username)
         if(data.Status == "Success") { 
         $.get("https://server.intern-port.com/get-user-details", {"uid": uid, "type": "Employee"}, (data, status) => {
-            if(username == data.posts[key].username) {
-                $("#main-card").after("<div class=\"post-card\" id=" +  key + ">\
-                                            <div class=\"container\"></div> \
-                                                <h1 class=\"name\">" + data.posts[key].username + "</h1> \
-                                                <h3 class=\"time\">" +  data.posts[key].timestamp + "</h3> \
-                                                <h2 class=\"position\">" + data.posts[key].position + "</h2> \
-                                                <p class=\"post\">" + data.posts[key].post_text + "</p> \
-                                                <button type=\"button\" class=\"delete-button\" onclick=\"delete_pressed(this)\">Delete</button> \
-                                                <button type=\"button\" class=\"like-button\" onclick=\"like_pressed(this)\">Like</button> \
-                                                <p class = \"num-likes\">" + data.posts[key].likes + " Likes </p> \
-                                                <br/> \
-                                            </div> \
-                                        </div>")
-                }
-            else {
-                    $("#main-card").after("<div class=\"post-card\" id=" +  key + ">\
-                    <div class=\"container\"></div> \
-                        <h1 class=\"name\">" + data.posts[key].username + "</h1> \
-                        <h3 class=\"time\">" +  data.posts[key].timestamp + "</h3> \
-                        <h2 class=\"position\">" + data.posts[key].position + "</h2> \
-                        <p class=\"post\">" + data.posts[key].post_text + "</p> \
-                        <button type=\"button\" class=\"like-button-first\" onclick=\"like_pressed(this)\">Like</button> \
-                        <p class = \"num-likes\">" + data.posts[key].likes + " Likes </p> \
-                        <br/> \
-                    </div> \
-                </div>")
-            }
+            $("#main-card").after("<div class=\"post-card\" id=" +  data.post_id + ">\
+                                        <div class=\"container\"></div> \
+                                            <h1 class=\"name\">" +  data.username + "</h1> \
+                                            <h3 class=\"time\">" +  timestamp + "</h3> \
+                                            <h2 class=\"position\">" +  data.position + "</h2> \
+                                            <p class=\"post\">" + post_text + "</p> \
+                                            <button type=\"button\" class=\"delete-button\" onclick=\"delete_pressed(this)\">Delete</button> \
+                                            <button class=\"like-button\" type=\"button\" onclick=\"like_pressed(this)\">Like</button> \
+                                            <p class = \"num-likes\">0 Likes</p> \
+                                            <br/> \
+                                        </div> \
+                                    </div>")
         })
     }
     })
